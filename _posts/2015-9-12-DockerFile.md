@@ -3,8 +3,6 @@ layout: post
 title: Dockerfileチートシート
 ---
 
-# Dockerfileチートシート
-
 ## Dockerfileとは？
 
 Makefileのようなもの。コンテナの構成を記述する。
