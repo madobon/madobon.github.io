@@ -57,7 +57,7 @@ function talksDevPlugin(): Plugin {
   };
 
   return {
-    name: "madobon-talks-dev",
+    name: "talks-dev",
     configureServer(server) {
       buildTalks();
       server.watcher.unwatch(join(talksSourceRoot, "**", "node_modules", "**"));

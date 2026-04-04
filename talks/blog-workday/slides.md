@@ -11,11 +11,11 @@ mdc: true
 download: false
 ---
 
-<div class="madobon-kicker">Blog Workday</div>
+<div class="space-kicker">Blog Workday</div>
 
 # 今日ブログでやったこと
 
-<div class="madobon-cover-lead">
+<div class="space-cover-lead">
 
 Qiita への導線追加から始めて、
 ブログの並び順、カードの見た目、Markdown parser の置き換え、
@@ -23,10 +23,10 @@ Qiita への導線追加から始めて、
 
 </div>
 
-<div class="madobon-chip-row">
-  <span class="madobon-chip">Qiita 導線</span>
-  <span class="madobon-chip">Slidev 公開</span>
-  <span class="madobon-chip">markdown-it</span>
+<div class="space-chip-row">
+  <span class="space-chip">Qiita 導線</span>
+  <span class="space-chip">Slidev 公開</span>
+  <span class="space-chip">markdown-it</span>
 </div>
 
 ---

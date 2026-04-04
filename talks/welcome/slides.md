@@ -11,11 +11,11 @@ mdc: true
 download: false
 ---
 
-<div class="madobon-kicker">Reusable Slidev Theme</div>
+<div class="space-kicker">Reusable Slidev Theme</div>
 
 # Welcome
 
-<div class="madobon-cover-lead">
+<div class="space-cover-lead">
 
 静かな宇宙空間をベースにしつつ、
 <strong>気負わず使えるやさしさ</strong> を少し足した Slidev デッキです。
@@ -23,10 +23,10 @@ download: false
 
 </div>
 
-<div class="madobon-chip-row">
-  <span class="madobon-chip">やわらかい空気感</span>
-  <span class="madobon-chip">読みやすさ重視</span>
-  <span class="madobon-chip">そのまま育てやすい</span>
+<div class="space-chip-row">
+  <span class="space-chip">やわらかい空気感</span>
+  <span class="space-chip">読みやすさ重視</span>
+  <span class="space-chip">そのまま育てやすい</span>
 </div>
 
 ---

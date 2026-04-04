@@ -99,7 +99,7 @@ For GitHub Actions, consider using [`voidzero-dev/setup-vp`](https://github.com/
 
 - The homepage app lives in `src/` and is built with `Vite+ + Vue + vite-ssg`.
 - Slide decks live under `talks/<slug>/`.
-- Shared Slidev theme code lives under `talks/theme-madobon/`.
+- Shared Slidev theme code lives under `talks/theme-space/`.
 - Talks index data lives in `src/data/talks.ts`.
 - `scripts/build-talks.mjs` auto-builds every `talks/*` directory that contains both `slides.md` and `package.json`.
 
@@ -115,7 +115,7 @@ layout: center
 ```
 
 - Do not write `## layout: center`. That becomes visible slide content.
-- Keep reusable visuals and layouts in `talks/theme-madobon/`, not inside a single deck.
+- Keep reusable visuals and layouts in `talks/theme-space/`, not inside a single deck.
 - Prefer ambient backgrounds and overlays for cover slides so text remains readable on projector-like displays.
 - When editing `talks/welcome/slides.md` or other decks, restart or reload the local Slidev server and verify the rendered result, not just the markdown source.
 

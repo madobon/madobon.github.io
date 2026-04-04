@@ -1,12 +1,12 @@
 :root {
-  --madobon-bg: #07101f;
-  --madobon-panel: rgba(11, 18, 38, 0.6);
-  --madobon-line: rgba(148, 197, 255, 0.16);
-  --madobon-copy: rgba(232, 240, 251, 0.84);
-  --madobon-copy-strong: rgba(248, 250, 252, 0.96);
-  --madobon-accent: #8bd3ff;
-  --madobon-warm: #ffb36b;
-  --madobon-rose: #ff8da1;
+  --space-bg: #07101f;
+  --space-panel: rgba(11, 18, 38, 0.6);
+  --space-line: rgba(148, 197, 255, 0.16);
+  --space-copy: rgba(232, 240, 251, 0.84);
+  --space-copy-strong: rgba(248, 250, 252, 0.96);
+  --space-accent: #8bd3ff;
+  --space-warm: #ffb36b;
+  --space-rose: #ff8da1;
 }
 
 .slidev-layout {
@@ -18,13 +18,13 @@
   color: #f8fafc;
 }
 
-.madobon-shell {
+.space-shell {
   position: relative;
   min-height: 100%;
   overflow: hidden;
 }
 
-.madobon-shell::before {
+.space-shell::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -37,34 +37,34 @@
   pointer-events: none;
 }
 
-.madobon-content {
+.space-content {
   position: relative;
   z-index: 3;
 }
 
-.madobon-entry {
-  animation: madobon-fade-up 420ms ease-out both;
+.space-entry {
+  animation: space-fade-up 420ms ease-out both;
 }
 
-.madobon-cover {
+.space-cover {
   display: grid;
   min-height: 100%;
   align-items: center;
 }
 
-.madobon-open {
+.space-open {
   min-height: 100%;
 }
 
-.madobon-open-content {
+.space-open-content {
   max-width: 54rem;
 }
 
-.madobon-default .madobon-content {
+.space-default .space-content {
   max-width: 60rem;
 }
 
-.madobon-cover-glow {
+.space-cover-glow {
   position: absolute;
   inset: 0;
   z-index: 2;
@@ -81,7 +81,7 @@
   pointer-events: none;
 }
 
-.madobon-surface-glow {
+.space-surface-glow {
   position: absolute;
   inset: 0;
   z-index: 2;
@@ -92,28 +92,28 @@
   pointer-events: none;
 }
 
-.airy-slide .madobon-surface-glow {
+.airy-slide .space-surface-glow {
   background:
     radial-gradient(circle at 18% 22%, rgba(139, 211, 255, 0.22), transparent 18rem),
     radial-gradient(circle at 84% 16%, rgba(255, 179, 107, 0.16), transparent 14rem),
     linear-gradient(180deg, rgba(7, 16, 31, 0.01), rgba(3, 8, 21, 0.1));
 }
 
-.madobon-cover-frame {
+.space-cover-frame {
   width: 100%;
 }
 
-.madobon-cover-panel {
+.space-cover-panel {
   width: min(100%, 56rem);
   margin: 0 auto;
   background: linear-gradient(180deg, rgba(10, 18, 37, 0.76), rgba(7, 12, 28, 0.54));
 }
 
-.madobon-panel {
+.space-panel {
   position: relative;
-  border: 1px solid var(--madobon-line);
+  border: 1px solid var(--space-line);
   border-radius: 1.8rem;
-  background: var(--madobon-panel);
+  background: var(--space-panel);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
     inset 0 0 48px rgba(139, 211, 255, 0.04),
@@ -122,7 +122,7 @@
   overflow: hidden;
 }
 
-.madobon-panel::before {
+.space-panel::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -132,16 +132,16 @@
   pointer-events: none;
 }
 
-.madobon-center .madobon-panel {
+.space-center .space-panel {
   background: linear-gradient(180deg, rgba(8, 12, 28, 0.4), rgba(6, 10, 24, 0.22));
 }
 
-.madobon-panel-content {
+.space-panel-content {
   position: relative;
   z-index: 2;
 }
 
-.madobon-kicker {
+.space-kicker {
   margin-bottom: 1rem;
   font-size: 0.75rem;
   letter-spacing: 0.18em;
@@ -149,93 +149,93 @@
   color: rgba(191, 219, 254, 0.84);
 }
 
-.madobon-accent {
-  color: var(--madobon-accent);
+.space-accent {
+  color: var(--space-accent);
 }
 
-.madobon-cover h1,
-.madobon-center h1,
-.madobon-open h1,
-.madobon-default h1,
-.madobon-default h2 {
+.space-cover h1,
+.space-center h1,
+.space-open h1,
+.space-default h1,
+.space-default h2 {
   letter-spacing: -0.04em;
 }
 
-.madobon-cover h1 {
+.space-cover h1 {
   max-width: 11ch;
   margin-bottom: 0.7rem;
   font-size: 3.4rem;
   line-height: 0.98;
 }
 
-.madobon-open h1 {
+.space-open h1 {
   max-width: 12ch;
   font-size: 3rem;
   line-height: 0.96;
 }
 
-.madobon-default h1,
-.madobon-open h1,
-.madobon-center h1 {
+.space-default h1,
+.space-open h1,
+.space-center h1 {
   margin-bottom: 0.75rem;
 }
 
-.madobon-default p,
-.madobon-default li,
-.madobon-open p,
-.madobon-open li,
-.madobon-center p,
-.madobon-center li,
-.madobon-cover p,
-.madobon-default code,
-.madobon-open code,
-.madobon-center code {
-  color: var(--madobon-copy);
+.space-default p,
+.space-default li,
+.space-open p,
+.space-open li,
+.space-center p,
+.space-center li,
+.space-cover p,
+.space-default code,
+.space-open code,
+.space-center code {
+  color: var(--space-copy);
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.28);
 }
 
-.madobon-cover strong,
-.madobon-open strong,
-.madobon-default strong,
-.madobon-center strong {
-  color: var(--madobon-copy-strong);
+.space-cover strong,
+.space-open strong,
+.space-default strong,
+.space-center strong {
+  color: var(--space-copy-strong);
 }
 
-.madobon-cover p {
+.space-cover p {
   max-width: 42rem;
 }
 
-.madobon-cover .madobon-kicker {
+.space-cover .space-kicker {
   margin-bottom: 0.8rem;
 }
 
-.madobon-cover ul,
-.madobon-cover ol,
-.madobon-open ul,
-.madobon-open ol {
+.space-cover ul,
+.space-cover ol,
+.space-open ul,
+.space-open ol {
   max-width: 42rem;
   padding-left: 1.2rem;
-  color: var(--madobon-copy);
+  color: var(--space-copy);
 }
 
-.madobon-open li {
+.space-open li {
   margin-bottom: 0.55rem;
 }
 
-.madobon-cover-lead {
+.space-cover-lead {
   max-width: 36rem;
   font-size: 1.02rem;
   line-height: 1.8;
 }
 
-.madobon-chip-row {
+.space-chip-row {
   display: flex;
   flex-wrap: wrap;
   gap: 0.65rem;
   margin-top: 1.4rem;
 }
 
-.madobon-chip {
+.space-chip {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
@@ -249,21 +249,21 @@
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-.madobon-chip::before {
+.space-chip::before {
   content: "";
   width: 0.45rem;
   height: 0.45rem;
   border-radius: 999px;
-  background: linear-gradient(135deg, var(--madobon-warm), var(--madobon-accent));
+  background: linear-gradient(135deg, var(--space-warm), var(--space-accent));
   box-shadow: 0 0 14px rgba(255, 179, 107, 0.35);
 }
 
-.madobon-open ul li::marker,
-.madobon-cover ul li::marker {
+.space-open ul li::marker,
+.space-cover ul li::marker {
   color: rgba(255, 179, 107, 0.9);
 }
 
-@keyframes madobon-fade-up {
+@keyframes space-fade-up {
   from {
     opacity: 0;
     transform: translateY(14px);

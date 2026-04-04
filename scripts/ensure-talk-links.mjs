@@ -6,7 +6,7 @@ const rootDir = dirname(fileURLToPath(import.meta.url));
 const projectRoot = resolve(rootDir, "..");
 const talksRoot = join(projectRoot, "talks");
 const sharedNodeModules = join(talksRoot, "welcome", "node_modules");
-const sharedThemePath = join(talksRoot, "theme-madobon");
+const sharedThemePath = join(talksRoot, "theme-space");
 
 function ensureLink(linkPath, targetPath, type = "dir") {
   if (existsSync(linkPath)) return;
