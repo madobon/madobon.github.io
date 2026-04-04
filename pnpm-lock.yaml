@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@unhead/vue':
+        specifier: ^2.1.12
+        version: 2.1.12(vue@3.5.32(typescript@5.9.3))
       '@vitejs/plugin-vue':
         specifier: ^6.0.5
         version: 6.0.5(@voidzero-dev/vite-plus-core@0.1.15(@types/node@22.19.17)(esbuild@0.27.7)(jiti@2.6.1)(terser@5.46.1)(typescript@5.9.3)(yaml@2.8.3))(vue@3.5.32(typescript@5.9.3))
