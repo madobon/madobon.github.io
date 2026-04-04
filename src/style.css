@@ -1249,17 +1249,14 @@ code {
 
 .blog-prose p,
 .blog-prose li {
-  max-width: 68ch;
+  max-width: none;
   color: var(--text);
   font-size: 1.03rem;
   line-height: 1.8;
 }
 
 .blog-prose > p:first-of-type {
-  font-size: clamp(1.12rem, 1.7vw, 1.28rem);
-  line-height: 1.86;
-  color: color-mix(in srgb, var(--text) 88%, white 12%);
-  letter-spacing: -0.01em;
+  color: var(--text);
 }
 
 .blog-prose ul,
