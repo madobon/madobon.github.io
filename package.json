@@ -5,10 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vp dev",
-    "build": "npm run build:site && npm run build:talks",
+    "build": "pnpm run build:site && pnpm run build:talks",
     "build:site": "tsc && vite-ssg build",
-    "build:talks": "npm run build:talk:welcome",
-    "build:talk:welcome": "npm --prefix talks/welcome run build -- --out ../../dist/talks/welcome",
+    "build:talks": "node scripts/build-talks.mjs",
     "preview": "vp preview",
     "prepare": "vp config"
   },
@@ -27,5 +26,5 @@
     "vite": "npm:@voidzero-dev/vite-plus-core@latest",
     "vitest": "npm:@voidzero-dev/vite-plus-test@latest"
   },
-  "packageManager": "npm@11.12.1"
+  "packageManager": "pnpm@10.18.1"
 }

@@ -1,0 +1,82 @@
+:root {
+  --madobon-bg: #050816;
+  --madobon-panel: rgba(10, 15, 32, 0.78);
+  --madobon-line: rgba(125, 211, 252, 0.16);
+  --madobon-copy: rgba(226, 232, 240, 0.78);
+  --madobon-accent: #7dd3fc;
+  --madobon-warm: #fb923c;
+}
+
+.slidev-layout {
+  background:
+    radial-gradient(circle at top, rgba(56, 189, 248, 0.1), transparent 24rem),
+    radial-gradient(circle at 80% 18%, rgba(251, 146, 60, 0.12), transparent 16rem),
+    linear-gradient(180deg, #040714 0%, #020617 100%);
+  color: #f8fafc;
+}
+
+.madobon-shell {
+  position: relative;
+  min-height: 100%;
+  overflow: hidden;
+}
+
+.madobon-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.18) 0, transparent 0.12rem),
+    radial-gradient(circle at 78% 22%, rgba(125, 211, 252, 0.16) 0, transparent 0.1rem),
+    radial-gradient(circle at 62% 72%, rgba(255, 255, 255, 0.12) 0, transparent 0.1rem);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.madobon-content {
+  position: relative;
+  z-index: 1;
+}
+
+.madobon-cover {
+  display: grid;
+  min-height: 100%;
+  align-items: center;
+}
+
+.madobon-cover h1,
+.madobon-center h1,
+.madobon-default h1,
+.madobon-default h2 {
+  letter-spacing: -0.04em;
+}
+
+.madobon-default p,
+.madobon-default li,
+.madobon-center p,
+.madobon-center li,
+.madobon-cover p {
+  color: var(--madobon-copy);
+}
+
+.madobon-panel {
+  border: 1px solid var(--madobon-line);
+  border-radius: 1.5rem;
+  background: var(--madobon-panel);
+  box-shadow:
+    inset 0 0 50px rgba(56, 189, 248, 0.05),
+    0 24px 60px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(16px);
+}
+
+.madobon-kicker {
+  margin-bottom: 1rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(148, 163, 184, 0.88);
+}
+
+.madobon-accent {
+  color: var(--madobon-accent);
+}

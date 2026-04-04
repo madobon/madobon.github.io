@@ -1,56 +1,44 @@
 ---
-theme: default
+theme: madobon
 title: Welcome to madobon.github.io
 info: |
-  First Slidev deck for the site.
-class: text-center
+  Interactive Slidev deck with a reusable custom theme and Three.js starfield.
+layout: cover
 drawings:
   persist: false
-transition: slide-left
 mdc: true
 ---
 
-# Welcome
+<div class="madobon-kicker">Reusable Slidev Theme</div>
 
-First Slidev deck on `madobon.github.io`
+# Welcome to the Drift
 
-<div class="pt-8">
+<div class="mt-6 max-w-2xl text-sm opacity-80">
 
-- Homepage: `Vite+ + Vue + Vite SSG`
-- Slides: `Slidev`
-- Publish target: `/talks/welcome/`
+An interactive Slidev page with a Three.js scene:
+particles drift through a deep-space field while the core object subtly reacts to pointer movement.
 
 </div>
+
+<ThreeCosmos />
 
 ---
 
 ## layout: center
 
-# Why This Split
+# Stack
 
-Keep the homepage and the slides independent.
-
-- The homepage stays easy to maintain
-- Each talk can ship on its own path
-- New decks do not disturb the core site
-
----
-
-layout: image-right
-image: https://cover.sli.dev
+- `Slidev` for presentation structure
+- `slidev-theme-madobon` for reusable layouts and shared visuals
+- `Three.js` for the interactive starfield
+- published under `/talks/welcome/`
 
 ---
+
+## layout: center
 
 # Next
 
-1. Replace this deck with a real talk
+1. Replace the copy with your real talk
 2. Add more decks under `talks/<slug>/`
-3. Link them from the Talks page
-
----
-
-## layout: end
-
-# Thanks
-
-`https://madobon.github.io/talks/welcome/`
+3. Keep the homepage and each deck independently deployable

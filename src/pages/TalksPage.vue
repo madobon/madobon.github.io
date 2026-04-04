@@ -1,16 +1,10 @@
 <script setup lang="ts">
+import { talks } from "../data/talks";
+
 const workflow = [
   "Create each deck in a Slidev project or subdirectory.",
   "Build the deck as static files with the correct base path.",
   "Publish the output under /talks/<slug>/ on this site.",
-];
-
-const decks = [
-  {
-    title: "Welcome",
-    href: "/talks/welcome/",
-    summary: "A first Slidev deck wired into the same GitHub Pages deployment as the homepage.",
-  },
 ];
 </script>
 
@@ -44,11 +38,11 @@ const decks = [
     </section>
 
     <section class="grid cards-grid">
-      <article v-for="deck in decks" :key="deck.href" class="card">
-        <p class="card-kicker">Slidev deck</p>
+      <article v-for="deck in talks" :key="deck.href" class="card">
+        <p class="card-kicker">{{ deck.status }}</p>
         <h2>{{ deck.title }}</h2>
         <p>{{ deck.summary }}</p>
-        <a class="text-link" :href="deck.href">Open slides</a>
+        <a class="text-link" :href="deck.href">Open {{ deck.slug }}</a>
       </article>
     </section>
   </div>

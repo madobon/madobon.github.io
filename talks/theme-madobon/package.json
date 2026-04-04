@@ -1,0 +1,25 @@
+{
+  "name": "slidev-theme-madobon",
+  "version": "0.0.0",
+  "private": true,
+  "keywords": [
+    "slidev",
+    "slidev-theme"
+  ],
+  "type": "module",
+  "dependencies": {
+    "three": "^0.183.2"
+  },
+  "engines": {
+    "slidev": ">=52.0.0"
+  },
+  "packageManager": "pnpm@10.18.1",
+  "slidev": {
+    "colorSchema": "dark",
+    "defaults": {
+      "layout": "default",
+      "transition": "fade",
+      "class": "text-white"
+    }
+  }
+}

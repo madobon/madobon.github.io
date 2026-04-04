@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "@slidev/cli": "^52.14.1",
-    "@slidev/theme-default": "^0.25.0"
-  }
+    "slidev-theme-madobon": "workspace:*"
+  },
+  "packageManager": "pnpm@10.18.1"
 }
