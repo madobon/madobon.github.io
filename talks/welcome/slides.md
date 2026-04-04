@@ -30,7 +30,6 @@ download: false
 </div>
 
 ---
-
 layout: open
 ---
 
