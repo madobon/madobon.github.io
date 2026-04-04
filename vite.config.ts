@@ -4,7 +4,7 @@ import { defineConfig } from "vite-plus";
 export default defineConfig({
   plugins: [vue()],
   staged: {
-    "*": "vp check --fix",
+    "*": "bash scripts/vp-staged-check.sh",
   },
   fmt: {},
   lint: { options: { typeAware: true, typeCheck: true } },
