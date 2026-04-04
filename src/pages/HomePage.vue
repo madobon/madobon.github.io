@@ -2,9 +2,11 @@
 const highlights = [
   {
     title: "About",
-    body: "プロフィール、仕事の進め方、このサイトで扱っていくテーマをまとめています。",
+    body: "プロフィール、仕事の進め方、このサイトで扱っていくテーマに加えて、Qiita の記事投稿先もここから辿れるようにしています。",
     href: "/about/",
     note: "Profile and approach",
+    externalHref: "https://qiita.com/madobon",
+    externalLabel: "Qiita の記事を見る",
   },
   {
     title: "Blog",
@@ -112,6 +114,11 @@ const principles = [
                 stroke-width="1.8"
               />
             </svg>
+          </a>
+        </div>
+        <div v-if="item.externalHref && item.externalLabel" class="link-row">
+          <a class="text-link" :href="item.externalHref" target="_blank" rel="noreferrer">
+            {{ item.externalLabel }}
           </a>
         </div>
       </article>

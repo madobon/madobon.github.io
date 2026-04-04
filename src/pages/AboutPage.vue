@@ -30,6 +30,14 @@ const interests = [
   "小さな道具や検証を公開して残すこと",
   "発表資料とサイト本体を無理なく共存させること",
 ];
+
+const externalWritingLinks = [
+  {
+    name: "Qiita",
+    href: "https://qiita.com/madobon",
+    body: "このサイトのブログより少し広く届けたい技術記事や、外部に向けてまとめたい内容を投稿しています。",
+  },
+];
 </script>
 
 <template>
@@ -65,6 +73,19 @@ const interests = [
       <ul class="feature-list">
         <li v-for="interest in interests" :key="interest">{{ interest }}</li>
       </ul>
+    </section>
+
+    <section class="card checklist-card">
+      <p class="card-kicker">Elsewhere</p>
+      <h2>External writing and posting.</h2>
+      <div v-for="link in externalWritingLinks" :key="link.name">
+        <p>{{ link.body }}</p>
+        <div class="link-row">
+          <a class="text-link" :href="link.href" target="_blank" rel="noreferrer">
+            {{ link.name }} を開く
+          </a>
+        </div>
+      </div>
     </section>
   </div>
 </template>
