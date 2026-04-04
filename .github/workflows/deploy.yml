@@ -36,8 +36,14 @@ jobs:
       - name: Install dependencies
         run: vp install
 
+      - name: Install Slidev deck dependencies
+        run: npm --prefix talks/welcome install
+
       - name: Build static site
         run: npx vite-ssg build
+
+      - name: Build Slidev deck
+        run: npm --prefix talks/welcome run build -- --out ../../dist/talks/welcome
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

@@ -5,7 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vp dev",
-    "build": "tsc && vite-ssg build",
+    "build": "npm run build:site && npm run build:talks",
+    "build:site": "tsc && vite-ssg build",
+    "build:talks": "npm run build:talk:welcome",
+    "build:talk:welcome": "npm --prefix talks/welcome run build -- --out ../../dist/talks/welcome",
     "preview": "vp preview",
     "prepare": "vp config"
   },

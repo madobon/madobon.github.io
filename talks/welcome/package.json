@@ -1,0 +1,13 @@
+{
+  "name": "welcome-slidev-deck",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "slidev slides.md",
+    "build": "slidev build slides.md --base /talks/welcome/"
+  },
+  "devDependencies": {
+    "@slidev/cli": "^52.14.1",
+    "@slidev/theme-default": "^0.25.0"
+  }
+}

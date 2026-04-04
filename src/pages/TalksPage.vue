@@ -4,6 +4,14 @@ const workflow = [
   "Build the deck as static files with the correct base path.",
   "Publish the output under /talks/<slug>/ on this site.",
 ];
+
+const decks = [
+  {
+    title: "Welcome",
+    href: "/talks/welcome/",
+    summary: "A first Slidev deck wired into the same GitHub Pages deployment as the homepage.",
+  },
+];
 </script>
 
 <template>
@@ -32,6 +40,15 @@ const workflow = [
         <ol class="steps-list">
           <li v-for="step in workflow" :key="step">{{ step }}</li>
         </ol>
+      </article>
+    </section>
+
+    <section class="grid cards-grid">
+      <article v-for="deck in decks" :key="deck.href" class="card">
+        <p class="card-kicker">Slidev deck</p>
+        <h2>{{ deck.title }}</h2>
+        <p>{{ deck.summary }}</p>
+        <a class="text-link" :href="deck.href">Open slides</a>
       </article>
     </section>
   </div>
