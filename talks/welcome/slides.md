@@ -1,5 +1,5 @@
 ---
-theme: madobon
+theme: space
 title: madobon.github.io へようこそ
 info: |
   再利用できる Slidev テーマと、宇宙空間を漂うパーティクルを試すためのデッキ。
@@ -36,7 +36,7 @@ layout: open
 # このデッキの構成
 
 - `Slidev` でスライド構成を管理
-- `slidev-theme-madobon` で配色とレイアウトを共通化
+- `slidev-theme-space` で配色とレイアウトを共通化
 - `Three.js` で背景パーティクルを描画
 - `/talks/welcome/` にそのまま公開できる、試しやすい構成
 

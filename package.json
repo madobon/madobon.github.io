@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vp dev",
-    "dev:all": "concurrently -k -n site,slides -c blue,magenta \"vp dev\" \"pnpm --dir talks/welcome exec slidev slides.md --port 3030 --base /talks/welcome/\"",
+    "dev:all": "node scripts/ensure-talk-links.mjs && concurrently -k -n site,slides -c blue,magenta \"vp dev\" \"pnpm --dir talks/welcome exec slidev slides.md --port 3030 --base /talks/welcome/\"",
     "build": "pnpm run build:site && pnpm run build:talks",
     "build:site": "tsc && vite-ssg build",
     "build:talks": "node scripts/build-talks.mjs",

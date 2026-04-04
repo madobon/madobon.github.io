@@ -2,6 +2,7 @@ import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync 
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
+import { ensureTalkLinks } from "./ensure-talk-links.mjs";
 
 const rootDir = dirname(fileURLToPath(import.meta.url));
 const projectRoot = resolve(rootDir, "..");
@@ -91,6 +92,7 @@ const talkDirs = readdirSync(talksRoot, { withFileTypes: true })
 for (const slug of talkDirs) {
   const talkDistDir = join(projectRoot, "dist", "talks", slug);
   rmSync(talkDistDir, { recursive: true, force: true });
+  ensureTalkLinks(slug);
 
   const result = spawnSync(
     "pnpm",
@@ -104,7 +106,7 @@ for (const slug of talkDirs) {
       "--base",
       `/talks/${slug}/`,
       "--out",
-      `../../dist/talks/${slug}`,
+      join("..", "..", "dist", "talks", slug),
     ],
     {
       cwd: projectRoot,

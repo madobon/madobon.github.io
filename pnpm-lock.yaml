@@ -60,7 +60,7 @@ importers:
       '@slidev/cli':
         specifier: 52.14.1
         version: 52.14.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@nuxt/kit@3.21.2)(@types/markdown-it@14.1.2)(@types/node@22.19.17)(@vue/compiler-sfc@3.5.32)(lightningcss@1.32.0)(markdown-it@14.1.1)(postcss@8.5.8)(terser@5.46.1)
-      slidev-theme-madobon:
+      slidev-theme-space:
         specifier: workspace:*
         version: link:../theme-madobon
 

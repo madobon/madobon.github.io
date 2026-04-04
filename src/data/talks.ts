@@ -8,6 +8,14 @@ export type TalkEntry = {
 
 export const talks: TalkEntry[] = [
   {
+    slug: "blog-workday",
+    title: "Blog Workday Notes",
+    href: "/talks/blog-workday/",
+    status: "作業の振り返りをまとめたデッキ",
+    summary:
+      "Qiita 導線追加、Slidev の GitHub Pages 対応、ブログの markdown-it 化と Mermaid 確認までを短く振り返るデッキです。",
+  },
+  {
     slug: "welcome",
     title: "Welcome to the Drift",
     href: "/talks/welcome/",

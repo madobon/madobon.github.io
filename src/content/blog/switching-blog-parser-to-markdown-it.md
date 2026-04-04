@@ -23,12 +23,13 @@ tags:
 
 特に今回ほしかったのは、次のようなコードフェンスを自然に扱えることでした。
 
-```md
+````md
 ```mermaid
 flowchart TD
   A[Start] --> B[Write]
   B --> C[Publish]
 ```
+````
 
 Mermaid そのものの描画はクライアント側でやるとしても、少なくとも Markdown 側で `mermaid` fence を素直に受け止められる土台がほしくなりました。
 
@@ -40,15 +41,15 @@ Mermaid そのものの描画はクライアント側でやるとしても、少
 
 ```ts
 markdown.renderer.rules.fence = (tokens, index, options, _env, self) => {
-  const token = tokens[index]
-  const info = token.info.trim().split(/\s+/)[0]
+  const token = tokens[index];
+  const info = token.info.trim().split(/\s+/)[0];
 
-  if (info === 'mermaid') {
-    return `<div class="mermaid">${markdown.utils.escapeHtml(token.content)}</div>`
+  if (info === "mermaid") {
+    return `<div class="mermaid">${markdown.utils.escapeHtml(token.content)}</div>`;
   }
 
-  return defaultFenceRenderer(tokens, index, options, _env, self)
-}
+  return defaultFenceRenderer(tokens, index, options, _env, self);
+};
 ```
 
 そのうえで記事詳細ページ側で `mermaid.run()` を呼んで、描画を後から差し込む形にしました。

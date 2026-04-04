@@ -1,4 +1,4 @@
-# slidev-theme-madobon
+# slidev-theme-space
 
 Local Slidev theme for `madobon.github.io`.
 
