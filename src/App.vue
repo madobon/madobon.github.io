@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { computed, watchEffect } from "vue";
+import { useHead } from "@unhead/vue";
+import { computed } from "vue";
 import { RouterLink, RouterView, useRoute } from "vue-router";
 
 import { getBlogPostBySlug } from "./data/blog";
+import { DEFAULT_DESCRIPTION, DEFAULT_OG_IMAGE, SITE_NAME, SITE_URL } from "./siteMeta";
 
 const route = useRoute();
 
@@ -18,34 +20,88 @@ const pageTitle = computed(() => {
   const slug = typeof route.params.slug === "string" ? route.params.slug : "";
   const post = getBlogPostBySlug(slug);
   const title =
-    post?.title ?? (typeof route.meta.title === "string" ? route.meta.title : "madobon");
-  return title === "madobon" ? title : `${title} | madobon`;
+    post?.title ?? (typeof route.meta.title === "string" ? route.meta.title : SITE_NAME);
+  return title === SITE_NAME ? title : `${title} | ${SITE_NAME}`;
 });
 
 const currentSection = computed(() =>
   typeof route.meta.title === "string" ? route.meta.title : "Home",
 );
 
-watchEffect(() => {
-  if (typeof document === "undefined") {
-    return;
-  }
-
-  document.title = pageTitle.value;
-
-  const description =
+const pageDescription = computed(
+  () =>
     getBlogPostBySlug(typeof route.params.slug === "string" ? route.params.slug : "")?.summary ??
-    (typeof route.meta.description === "string"
-      ? route.meta.description
-      : "Vite+、Vue、Vite SSG で構築した個人ホームページ。");
+    (typeof route.meta.description === "string" ? route.meta.description : DEFAULT_DESCRIPTION),
+);
 
-  let meta = document.querySelector('meta[name="description"]');
-  if (!meta) {
-    meta = document.createElement("meta");
-    meta.setAttribute("name", "description");
-    document.head.append(meta);
-  }
-  meta.setAttribute("content", description);
+const pagePath = computed(() => route.path);
+const canonicalUrl = computed(() => new URL(pagePath.value, `${SITE_URL}/`).toString());
+const post = computed(() =>
+  getBlogPostBySlug(typeof route.params.slug === "string" ? route.params.slug : ""),
+);
+const ogType = computed(() => (post.value ? "article" : "website"));
+
+useHead({
+  htmlAttrs: {
+    lang: "ja",
+  },
+  title: () => pageTitle.value,
+  link: [
+    {
+      rel: "canonical",
+      href: () => canonicalUrl.value,
+    },
+  ],
+  meta: [
+    {
+      name: "description",
+      content: () => pageDescription.value,
+    },
+    {
+      property: "og:site_name",
+      content: SITE_NAME,
+    },
+    {
+      property: "og:type",
+      content: () => ogType.value,
+    },
+    {
+      property: "og:title",
+      content: () => pageTitle.value,
+    },
+    {
+      property: "og:description",
+      content: () => pageDescription.value,
+    },
+    {
+      property: "og:url",
+      content: () => canonicalUrl.value,
+    },
+    {
+      property: "og:image",
+      content: DEFAULT_OG_IMAGE,
+    },
+    {
+      name: "twitter:card",
+      content: "summary",
+    },
+    {
+      name: "twitter:title",
+      content: () => pageTitle.value,
+    },
+    {
+      name: "twitter:description",
+      content: () => pageDescription.value,
+    },
+    {
+      name: "twitter:image",
+      content: DEFAULT_OG_IMAGE,
+    },
+    {
+      property: "article:published_time",
+      content: () => post.value?.date ?? "",
+    },
+  ],
 });
 </script>
 
