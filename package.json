@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vp dev",
-    "dev:all": "node scripts/ensure-talk-links.mjs && concurrently -k -n site,slides -c blue,magenta \"vp dev\" \"pnpm --dir talks/welcome exec slidev slides.md --port 3030 --base /talks/welcome/\"",
+    "dev:all": "node scripts/ensure-talk-links.mjs && vp dev",
     "build": "pnpm run build:site && pnpm run build:talks",
     "build:site": "tsc && vite-ssg build",
     "build:talks": "node scripts/build-talks.mjs",
@@ -24,7 +24,6 @@
   },
   "devDependencies": {
     "@types/markdown-it": "14.1.2",
-    "concurrently": "9.2.1",
     "typescript": "5.9.3",
     "vite": "npm:@voidzero-dev/vite-plus-core@0.1.15",
     "vite-plus": "0.1.15"

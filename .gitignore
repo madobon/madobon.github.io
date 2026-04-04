@@ -11,6 +11,10 @@ node_modules
 dist
 dist-ssr
 *.local
+talks/*/dist
+talks/*/index.html
+talks/*/404.html
+talks/*/_redirects
 
 # Editor directories and files
 .vscode/*

@@ -5,13 +5,21 @@ Personal homepage built with Vite+, Vue, and Vite SSG.
 ## Development
 
 ```bash
-vp dev
+pnpm dev
 ```
+
+To develop the site together with Slidev decks in a GitHub Pages-like shape, use:
+
+```bash
+pnpm dev:all
+```
+
+This serves `/talks/*` from `dist/talks/*`, matching the static output that gets uploaded to GitHub Pages.
 
 ## Build
 
 ```bash
-npx vite-ssg build
+pnpm build
 ```
 
 ## Deploy

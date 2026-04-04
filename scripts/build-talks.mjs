@@ -77,6 +77,21 @@ function writeSlideRouteDirectories(slug) {
   }
 }
 
+function cleanupTalkDevArtifacts(slug) {
+  const talkRoot = join(talksRoot, slug);
+  const generatedIndexPath = join(talkRoot, "index.html");
+
+  if (!existsSync(generatedIndexPath)) return;
+
+  const html = readFileSync(generatedIndexPath, "utf8");
+  const looksLikeSlidevDevIndex =
+    html.includes("@slidev/client/main.ts") && html.includes('meta property="slidev:version"');
+
+  if (looksLikeSlidevDevIndex) {
+    rmSync(generatedIndexPath, { force: true });
+  }
+}
+
 const talkDirs = readdirSync(talksRoot, { withFileTypes: true })
   .filter((entry) => entry.isDirectory())
   .map((entry) => entry.name)
@@ -93,6 +108,7 @@ for (const slug of talkDirs) {
   const talkDistDir = join(projectRoot, "dist", "talks", slug);
   rmSync(talkDistDir, { recursive: true, force: true });
   ensureTalkLinks(slug);
+  cleanupTalkDevArtifacts(slug);
 
   const result = spawnSync(
     "pnpm",
