@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, watch } from "vue";
+import { computed, nextTick, onMounted, onUnmounted, watch } from "vue";
 import { useRoute } from "vue-router";
 
 import { blogPosts, getBlogPostBySlug } from "../data/blog";
@@ -21,24 +21,41 @@ async function renderMermaid() {
     return;
   }
 
-  const mermaidBlocks = document.querySelectorAll(".blog-prose .mermaid");
+  const mermaidBlocks = Array.from(document.querySelectorAll<HTMLElement>(".blog-prose .mermaid"));
   if (mermaidBlocks.length === 0) {
     return;
   }
 
+  for (const block of mermaidBlocks) {
+    const source = block.dataset.mermaidSource ?? block.textContent ?? "";
+    block.dataset.mermaidSource = source;
+    block.removeAttribute("data-processed");
+    block.textContent = source;
+  }
+
   const mermaid = (await import("mermaid")).default;
+  const theme = document.documentElement.dataset.theme === "light" ? "default" : "dark";
   mermaid.initialize({
     startOnLoad: false,
-    theme: "dark",
+    theme,
     securityLevel: "loose",
   });
   await mermaid.run({
-    nodes: Array.from(mermaidBlocks),
+    nodes: mermaidBlocks,
   });
+}
+
+function handleThemeChange() {
+  void nextTick(renderMermaid);
 }
 
 onMounted(() => {
   void nextTick(renderMermaid);
+  window.addEventListener("themechange", handleThemeChange);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("themechange", handleThemeChange);
 });
 
 watch(

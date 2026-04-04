@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { useHead } from "@unhead/vue";
-import { computed } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { RouterLink, RouterView, useRoute } from "vue-router";
 
 import { getBlogPostBySlug } from "./data/blog";
 import { DEFAULT_DESCRIPTION, DEFAULT_OG_IMAGE, SITE_NAME, SITE_URL } from "./siteMeta";
 
 const route = useRoute();
+const STORAGE_KEY = "madobon-theme";
+const theme = ref<"light" | "dark">("dark");
 
 const navigation = [
   { href: "/", label: "Home" },
@@ -41,10 +43,58 @@ const post = computed(() =>
 );
 const ogType = computed(() => (post.value ? "article" : "website"));
 
+function setTheme(nextTheme: "light" | "dark") {
+  theme.value = nextTheme;
+
+  if (typeof document !== "undefined") {
+    document.documentElement.dataset.theme = nextTheme;
+    window.dispatchEvent(new CustomEvent("themechange", { detail: nextTheme }));
+  }
+
+  if (typeof window !== "undefined") {
+    window.localStorage.setItem(STORAGE_KEY, nextTheme);
+  }
+}
+
+function toggleTheme() {
+  setTheme(theme.value === "dark" ? "light" : "dark");
+}
+
+onMounted(() => {
+  const savedTheme = window.localStorage.getItem(STORAGE_KEY);
+  const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const initialTheme =
+    savedTheme === "light" || savedTheme === "dark"
+      ? savedTheme
+      : systemPrefersDark
+        ? "dark"
+        : "light";
+
+  setTheme(initialTheme);
+});
+
 useHead({
   htmlAttrs: {
     lang: "ja",
   },
+  script: [
+    {
+      key: "theme-init",
+      innerHTML: `
+        (() => {
+          const storageKey = "${STORAGE_KEY}";
+          const savedTheme = window.localStorage.getItem(storageKey);
+          const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          const theme = savedTheme === "light" || savedTheme === "dark"
+            ? savedTheme
+            : systemPrefersDark
+              ? "dark"
+              : "light";
+          document.documentElement.dataset.theme = theme;
+        })();
+      `,
+    },
+  ],
   title: () => pageTitle.value,
   link: [
     {
@@ -96,6 +146,10 @@ useHead({
     {
       name: "twitter:image",
       content: DEFAULT_OG_IMAGE,
+    },
+    {
+      name: "theme-color",
+      content: () => (theme.value === "dark" ? "#0b1320" : "#f5efe4"),
     },
     {
       property: "article:published_time",
@@ -151,6 +205,39 @@ useHead({
           <strong>{{ currentSection }}</strong>
           <span class="site-status-note">気になるところから、どうぞ。</span>
         </div>
+
+        <button
+          class="theme-toggle"
+          type="button"
+          :aria-label="theme === 'dark' ? 'ライトモードに切り替え' : 'ダークモードに切り替え'"
+          @click="toggleTheme"
+        >
+          <span class="theme-toggle-icon" aria-hidden="true">
+            <svg v-if="theme === 'dark'" viewBox="0 0 24 24" role="presentation">
+              <path
+                d="M12 3.75V6.1M12 17.9v2.35M5.64 5.64l1.66 1.66M16.7 16.7l1.66 1.66M3.75 12H6.1M17.9 12h2.35M5.64 18.36 7.3 16.7M16.7 7.3l1.66-1.66M12 8.15a3.85 3.85 0 1 1 0 7.7 3.85 3.85 0 0 1 0-7.7Z"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+              />
+            </svg>
+            <svg v-else viewBox="0 0 24 24" role="presentation">
+              <path
+                d="M14.5 3.55A8.75 8.75 0 1 0 20.45 15.5 7.2 7.2 0 0 1 14.5 3.55Z"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+              />
+            </svg>
+          </span>
+          <span class="theme-toggle-copy">
+            {{ theme === "dark" ? "Light mode" : "Dark mode" }}
+          </span>
+        </button>
 
         <nav class="site-nav" aria-label="Primary">
           <RouterLink v-for="item in navigation" :key="item.href" :to="item.href" class="nav-link">
