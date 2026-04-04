@@ -2,6 +2,10 @@
 import { blogPosts } from "../data/blog";
 
 const lanes = ["Notes", "Logs", "Snippets"];
+
+const getBlogCardClass = (title: string) => ({
+  "blog-index-card-long": title.length >= 22,
+});
 </script>
 
 <template>
@@ -21,17 +25,24 @@ const lanes = ["Notes", "Logs", "Snippets"];
     </section>
 
     <section class="grid cards-grid cards-grid-featured">
-      <article v-for="post in blogPosts" :key="post.slug" class="card nav-card blog-index-card">
+      <article
+        v-for="post in blogPosts"
+        :key="post.slug"
+        class="card nav-card blog-index-card"
+        :class="getBlogCardClass(post.title)"
+      >
         <p class="card-kicker">{{ post.displayDate }}</p>
         <h2>{{ post.title }}</h2>
         <p>{{ post.summary }}</p>
-        <div class="tag-cloud tag-cloud-left" aria-label="post tags">
-          <span v-for="tag in post.tags" :key="tag" class="signal-pill signal-pill-small">{{
-            tag
-          }}</span>
-        </div>
-        <div class="link-row">
-          <a class="text-link" :href="`/blog/${post.slug}/`">記事を読む</a>
+        <div class="blog-index-footer">
+          <div class="tag-cloud tag-cloud-left" aria-label="post tags">
+            <span v-for="tag in post.tags" :key="tag" class="signal-pill signal-pill-small">{{
+              tag
+            }}</span>
+          </div>
+          <div class="link-row">
+            <a class="text-link" :href="`/blog/${post.slug}/`">記事を読む</a>
+          </div>
         </div>
       </article>
     </section>
