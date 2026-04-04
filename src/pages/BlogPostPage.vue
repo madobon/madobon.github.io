@@ -39,7 +39,7 @@ const relatedPosts = computed(() => {
     </section>
 
     <section v-if="post" class="card blog-post-shell">
-      <div class="link-row">
+      <div class="blog-back-link">
         <a class="text-link" href="/blog/">Blog 一覧へ戻る</a>
       </div>
 

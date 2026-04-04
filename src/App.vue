@@ -84,13 +84,16 @@ watchEffect(() => {
           </span>
         </RouterLink>
 
-        <p class="site-intro">公開ノート、実験、発表資料を同じ土台で積み上げるための個人サイト。</p>
+        <p class="site-intro">
+          公開ノート、実験、発表資料をひとつの場所で育てていく、少しやわらかめの個人サイト。
+        </p>
       </div>
 
       <div class="site-nav-wrap">
         <div class="site-status">
           <span class="site-status-label">Current</span>
           <strong>{{ currentSection }}</strong>
+          <span class="site-status-note">気になるところから、どうぞ。</span>
         </div>
 
         <nav class="site-nav" aria-label="Primary">

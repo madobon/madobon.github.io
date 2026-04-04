@@ -26,8 +26,6 @@ const highlights = [
   },
 ];
 
-const signals = ["Notes first", "Small tools", "Slidev ready", "Static-friendly"];
-
 const snapshots = [
   {
     value: "04",
@@ -64,14 +62,11 @@ const principles = [
     <section class="hero-panel hero-layout">
       <div class="hero-copy-block">
         <p class="eyebrow">Personal site / notes / talks</p>
-        <h1 class="hero-title">Notes, projects, and decks collected into one quiet base.</h1>
+        <h1 class="hero-title">Notes, projects, and decks collected into one welcoming base.</h1>
         <p class="hero-copy">
-          このサイトは、書き散らしたメモをあとから拾い直せて、発表資料も同じ流れで公開できる個人サイトとして組んでいます。派手さよりも、長く育てやすい構成を優先しています。
+          このサイトは、書き散らしたメモをあとから拾い直せて、発表資料も同じ流れで公開できる個人サイトとして組んでいます。整いすぎたショーケースというより、
+          ふらっと戻ってこられる作業机のような場所を目指しています。
         </p>
-
-        <div class="signal-row" aria-label="site signals">
-          <span v-for="signal in signals" :key="signal" class="signal-pill">{{ signal }}</span>
-        </div>
 
         <div class="hero-actions">
           <a class="button button-solid" href="/projects/">プロジェクトを見る</a>
@@ -81,7 +76,7 @@ const principles = [
 
       <aside class="hero-aside card feature-card">
         <p class="card-kicker">Site snapshot</p>
-        <h2>Built to keep shipping small things without losing the shape of the whole.</h2>
+        <h2>Small things can live here without feeling temporary.</h2>
         <div class="snapshot-grid">
           <div v-for="item in snapshots" :key="item.label" class="snapshot-item">
             <strong>{{ item.value }}</strong>
