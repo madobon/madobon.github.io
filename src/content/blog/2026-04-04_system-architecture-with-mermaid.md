@@ -1,6 +1,7 @@
 ---
 title: "Mermaidで当システム構成図をまとめる"
 date: "2026-04-04T21:15:00+09:00"
+slug: "system-architecture-with-mermaid"
 summary: "このサイトの公開フローとコンテンツ構造を、Mermaidの構成図で一枚に整理しました。"
 tags:
   - mermaid

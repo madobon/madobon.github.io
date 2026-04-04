@@ -1,6 +1,7 @@
 ---
 title: "Codex を入れて最初にやったこと"
-date: "2026-04-04"
+date: "2026-04-04T15:07:06+09:00"
+slug: "codex-install-and-first-day"
 summary: "Codex の導入に使ったコマンドと、iTerm 上で実際にやったサイト調整の流れをまとめた記録です。"
 tags:
   - codex

@@ -98,10 +98,19 @@ For GitHub Actions, consider using [`voidzero-dev/setup-vp`](https://github.com/
 ## Site Structure
 
 - The homepage app lives in `src/` and is built with `Vite+ + Vue + vite-ssg`.
+- Blog posts live under `src/content/blog/`.
 - Slide decks live under `talks/<slug>/`.
 - Shared Slidev theme code lives under `talks/theme-space/`.
 - Talks index data lives in `src/data/talks.ts`.
 - `scripts/build-talks.mjs` auto-builds every `talks/*` directory that contains both `slides.md` and `package.json`.
+
+## Blog Rules
+
+- Blog post filenames should use the form `YYYY-MM-DD_slug.md`.
+- Blog post frontmatter `date` values must include a full ISO 8601 timestamp with timezone, for example `2026-04-05T06:31:16+09:00`.
+- Treat blog dates as JST (`+09:00`) unless the user explicitly wants a different timezone.
+- Do not add new blog posts with date-only values like `2026-04-05`.
+- Use `_` between the date prefix and the title slug for blog filenames, not `-`.
 
 ## Slidev Rules
 

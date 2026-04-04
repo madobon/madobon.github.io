@@ -1,6 +1,7 @@
 ---
 title: "ブログの自前 Markdown parser を markdown-it に寄せた"
 date: "2026-04-04T21:10:00+09:00"
+slug: "switching-blog-parser-to-markdown-it"
 summary: "簡易な自前 parser から markdown-it ベースへ切り替えて、Mermaid を扱いやすくした時のメモです。"
 tags:
   - markdown
