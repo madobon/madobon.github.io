@@ -110,16 +110,78 @@ code {
 }
 
 .brand-mark {
-  display: grid;
-  place-items: center;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 2.75rem;
   height: 2.75rem;
   border-radius: 0.9rem;
-  font-family: "Berkeley Mono", "SFMono-Regular", "Cascadia Code", monospace;
-  font-size: 1.55rem;
-  color: #04111f;
-  background: linear-gradient(135deg, #72e3ff 0%, #27b3ff 100%);
-  box-shadow: var(--shadow);
+  background:
+    radial-gradient(circle at 30% 25%, rgba(186, 244, 255, 0.3), transparent 38%),
+    linear-gradient(135deg, rgba(18, 37, 66, 0.92) 0%, rgba(8, 20, 38, 0.98) 100%);
+  border: 1px solid rgba(89, 212, 255, 0.22);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    var(--shadow);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.brand:hover .brand-mark {
+  transform: translateY(-1px) scale(1.03);
+  border-color: rgba(89, 212, 255, 0.34);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 18px 36px rgba(0, 0, 0, 0.34);
+}
+
+.brand-mark svg {
+  width: 1.9rem;
+  height: 1.9rem;
+  overflow: visible;
+}
+
+.brand-core {
+  fill: url(#brand-orbit);
+  filter: drop-shadow(0 0 8px rgba(89, 212, 255, 0.45));
+}
+
+.brand-ring {
+  fill: none;
+  stroke: rgba(150, 226, 255, 0.9);
+  stroke-linecap: round;
+  stroke-width: 3.2;
+}
+
+.brand-ring-outer {
+  stroke-dasharray: 48 10;
+}
+
+.brand-ring-inner {
+  stroke: rgba(89, 212, 255, 0.72);
+  stroke-dasharray: 36 12;
+}
+
+.brand-node {
+  fill: #dff8ff;
+  transform-origin: 32px 32px;
+  transition: transform 240ms ease;
+}
+
+.brand-node-a {
+  animation: orbit-drift-a 5.5s linear infinite;
+}
+
+.brand-node-b {
+  fill: #6ee7ff;
+  animation: orbit-drift-b 7s linear infinite;
+}
+
+.brand:hover .brand-node {
+  transform: scale(1.12);
 }
 
 .brand-copy {
@@ -342,6 +404,26 @@ code {
   color: var(--accent-strong);
   background: rgba(143, 160, 181, 0.14);
   border-color: rgba(143, 160, 181, 0.22);
+}
+
+@keyframes orbit-drift-a {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit-drift-b {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
 }
 
 .steps-list {

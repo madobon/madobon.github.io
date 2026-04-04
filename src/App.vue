@@ -46,7 +46,27 @@ watchEffect(() => {
 
     <header class="site-header">
       <RouterLink class="brand" to="/">
-        <span class="brand-mark">m</span>
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 64 64" role="presentation">
+            <defs>
+              <linearGradient id="brand-orbit" x1="0%" x2="100%" y1="0%" y2="100%">
+                <stop offset="0%" stop-color="#baf4ff" />
+                <stop offset="100%" stop-color="#1aa9ff" />
+              </linearGradient>
+            </defs>
+            <circle class="brand-core" cx="32" cy="32" r="8" />
+            <path
+              class="brand-ring brand-ring-outer"
+              d="M11 33c0-12 9.5-22 21-22 8.2 0 15.6 5 19 12.6"
+            />
+            <path
+              class="brand-ring brand-ring-inner"
+              d="M15 35c2.1 10.3 10.4 18 20.2 18 7.2 0 13.5-4.1 17-10.4"
+            />
+            <circle class="brand-node brand-node-a" cx="50" cy="23" r="3.5" />
+            <circle class="brand-node brand-node-b" cx="18" cy="44" r="3" />
+          </svg>
+        </span>
         <span class="brand-copy">
           <strong>madobon</strong>
           <small>ホームページ</small>
