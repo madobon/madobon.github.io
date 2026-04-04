@@ -1,9 +1,10 @@
 ---
 theme: madobon
-title: Welcome to madobon.github.io
+title: madobon.github.io へようこそ
 info: |
-  Interactive Slidev deck with a reusable custom theme and Three.js starfield.
+  再利用できる Slidev テーマと、宇宙空間を漂うパーティクルを試すためのデッキ。
 layout: cover
+class: cover-stars
 drawings:
   persist: false
 mdc: true
@@ -11,34 +12,36 @@ mdc: true
 
 <div class="madobon-kicker">Reusable Slidev Theme</div>
 
-# Welcome to the Drift
+# Welcome
 
-<div class="mt-6 max-w-2xl text-sm opacity-80">
+<div class="mt-5 max-w-2xl text-sm opacity-80">
 
-An interactive Slidev page with a Three.js scene:
-particles drift through a deep-space field while the core object subtly reacts to pointer movement.
+静かな宇宙空間をイメージした背景の上に、
+ふわりと流れるパーティクルを重ねた Slidev デッキです。
+動きは控えめにして、文字の読みやすさを優先しています。
 
 </div>
 
-<ThreeCosmos />
+---
+
+## layout: open
+
+# このデッキの構成
+
+- `Slidev` でスライド構成を管理
+- `slidev-theme-madobon` で配色とレイアウトを共通化
+- `Three.js` で背景パーティクルを描画
+- `/talks/welcome/` にそのまま公開できる構成
 
 ---
 
-layout: center
-
-# Stack
-
-- `Slidev` for presentation structure
-- `slidev-theme-madobon` for reusable layouts and shared visuals
-- `Three.js` for the interactive starfield
-- published under `/talks/welcome/`
+layout: open
+class: airy-slide
 
 ---
 
-layout: center
+# 次にやること
 
-# Next
-
-1. Replace the copy with your real talk
-2. Add more decks under `talks/<slug>/`
-3. Keep the homepage and each deck independently deployable
+1. 発表内容に合わせて本文を差し替える
+2. `talks/<slug>/` に新しい deck を追加する
+3. ホームページと各スライドを独立して育てていく

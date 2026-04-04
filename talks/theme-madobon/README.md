@@ -6,4 +6,4 @@ Includes:
 
 - reusable dark space layouts
 - shared typography and panel styling
-- `ThreeCosmos` component for interactive hero slides
+- `SpaceBackdrop` component for ambient particle backgrounds

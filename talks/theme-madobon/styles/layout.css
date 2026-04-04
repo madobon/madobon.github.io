@@ -1,8 +1,8 @@
 :root {
   --madobon-bg: #050816;
-  --madobon-panel: rgba(10, 15, 32, 0.78);
+  --madobon-panel: rgba(8, 12, 28, 0.58);
   --madobon-line: rgba(125, 211, 252, 0.16);
-  --madobon-copy: rgba(226, 232, 240, 0.78);
+  --madobon-copy: rgba(226, 232, 240, 0.8);
   --madobon-accent: #7dd3fc;
   --madobon-warm: #fb923c;
 }
@@ -25,17 +25,22 @@
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 0;
   background-image:
     radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.18) 0, transparent 0.12rem),
     radial-gradient(circle at 78% 22%, rgba(125, 211, 252, 0.16) 0, transparent 0.1rem),
     radial-gradient(circle at 62% 72%, rgba(255, 255, 255, 0.12) 0, transparent 0.1rem);
-  opacity: 0.9;
+  opacity: 0.6;
   pointer-events: none;
 }
 
 .madobon-content {
   position: relative;
-  z-index: 1;
+  z-index: 3;
+}
+
+.madobon-entry {
+  animation: madobon-fade-up 420ms ease-out both;
 }
 
 .madobon-cover {
@@ -44,38 +49,81 @@
   align-items: center;
 }
 
+.madobon-open {
+  min-height: 100%;
+}
+
+.madobon-open-content {
+  max-width: 54rem;
+}
+
+.madobon-default .madobon-content {
+  max-width: 60rem;
+}
+
+.madobon-cover-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    radial-gradient(circle at 18% 24%, rgba(56, 189, 248, 0.2), transparent 20rem),
+    radial-gradient(circle at 80% 16%, rgba(251, 146, 60, 0.18), transparent 16rem),
+    linear-gradient(
+      90deg,
+      rgba(3, 7, 18, 0.84) 0%,
+      rgba(3, 7, 18, 0.48) 45%,
+      rgba(3, 7, 18, 0.24) 100%
+    );
+  pointer-events: none;
+}
+
+.madobon-surface-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.16), transparent 18rem),
+    radial-gradient(circle at 80% 15%, rgba(251, 146, 60, 0.12), transparent 14rem),
+    linear-gradient(180deg, rgba(4, 7, 20, 0.04), rgba(2, 6, 23, 0.2));
+  pointer-events: none;
+}
+
+.airy-slide .madobon-surface-glow {
+  background:
+    radial-gradient(circle at 18% 22%, rgba(56, 189, 248, 0.2), transparent 18rem),
+    radial-gradient(circle at 84% 16%, rgba(251, 146, 60, 0.14), transparent 14rem),
+    linear-gradient(180deg, rgba(4, 7, 20, 0.02), rgba(2, 6, 23, 0.12));
+}
+
 .madobon-cover-frame {
   width: 100%;
 }
 
 .madobon-cover-panel {
-  width: min(100%, 72rem);
+  width: min(100%, 56rem);
   margin: 0 auto;
-}
-
-.madobon-cover h1,
-.madobon-center h1,
-.madobon-default h1,
-.madobon-default h2 {
-  letter-spacing: -0.04em;
-}
-
-.madobon-default p,
-.madobon-default li,
-.madobon-center p,
-.madobon-center li,
-.madobon-cover p {
-  color: var(--madobon-copy);
+  background: linear-gradient(180deg, rgba(8, 12, 28, 0.68), rgba(6, 10, 24, 0.52));
 }
 
 .madobon-panel {
+  position: relative;
   border: 1px solid var(--madobon-line);
   border-radius: 1.5rem;
   background: var(--madobon-panel);
   box-shadow:
-    inset 0 0 50px rgba(56, 189, 248, 0.05),
-    0 24px 60px rgba(0, 0, 0, 0.3);
+    inset 0 0 40px rgba(56, 189, 248, 0.04),
+    0 18px 48px rgba(0, 0, 0, 0.18);
   backdrop-filter: blur(16px);
+  overflow: hidden;
+}
+
+.madobon-center .madobon-panel {
+  background: linear-gradient(180deg, rgba(8, 12, 28, 0.4), rgba(6, 10, 24, 0.22));
+}
+
+.madobon-panel-content {
+  position: relative;
+  z-index: 2;
 }
 
 .madobon-kicker {
@@ -88,4 +136,80 @@
 
 .madobon-accent {
   color: var(--madobon-accent);
+}
+
+.madobon-cover h1,
+.madobon-center h1,
+.madobon-open h1,
+.madobon-default h1,
+.madobon-default h2 {
+  letter-spacing: -0.04em;
+}
+
+.madobon-cover h1 {
+  max-width: 11ch;
+  margin-bottom: 0.7rem;
+  font-size: 3.4rem;
+  line-height: 0.95;
+}
+
+.madobon-open h1 {
+  max-width: 12ch;
+  font-size: 3rem;
+  line-height: 0.96;
+}
+
+.madobon-default h1,
+.madobon-open h1,
+.madobon-center h1 {
+  margin-bottom: 0.75rem;
+}
+
+.madobon-default p,
+.madobon-default li,
+.madobon-open p,
+.madobon-open li,
+.madobon-center p,
+.madobon-center li,
+.madobon-cover p,
+.madobon-default code,
+.madobon-open code,
+.madobon-center code {
+  color: var(--madobon-copy);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.28);
+}
+
+.madobon-cover p {
+  max-width: 42rem;
+}
+
+.madobon-cover .madobon-kicker {
+  margin-bottom: 0.8rem;
+}
+
+.madobon-cover ul,
+.madobon-cover ol,
+.madobon-open ul,
+.madobon-open ol {
+  max-width: 42rem;
+  padding-left: 1.2rem;
+  color: var(--madobon-copy);
+}
+
+.madobon-open li {
+  margin-bottom: 0.55rem;
+}
+
+@keyframes madobon-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
 }
