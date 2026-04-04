@@ -8,6 +8,7 @@ class: cover-stars
 drawings:
   persist: false
 mdc: true
+download: false
 ---
 
 <div class="madobon-kicker">Reusable Slidev Theme</div>
