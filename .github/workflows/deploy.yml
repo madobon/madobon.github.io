@@ -30,11 +30,14 @@ jobs:
       - name: Install Vite+
         run: curl -fsSL https://vite.plus | bash
 
+      - name: Add Vite+ to PATH
+        run: echo "$HOME/.vite-plus/bin" >> "$GITHUB_PATH"
+
       - name: Install dependencies
-        run: source ~/.zshenv && vp install
+        run: vp install
 
       - name: Build static site
-        run: source ~/.zshenv && npx vite-ssg build
+        run: npx vite-ssg build
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
