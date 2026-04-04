@@ -23,8 +23,8 @@ mdc: true
 </div>
 
 ---
-
-## layout: open
+layout: open
+---
 
 # このデッキの構成
 
@@ -34,10 +34,8 @@ mdc: true
 - `/talks/welcome/` にそのまま公開できる構成
 
 ---
-
 layout: open
 class: airy-slide
-
 ---
 
 # 次にやること
