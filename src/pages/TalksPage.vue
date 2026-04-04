@@ -6,6 +6,14 @@ const workflow = [
   "Build the deck as static files with the correct base path.",
   "Publish the output under /talks/<slug>/ on this site.",
 ];
+
+const withFreshQuery = (href: string) => {
+  const stamp = new Date()
+    .toISOString()
+    .replace(/[-:TZ.]/g, "")
+    .slice(0, 12);
+  return `${href}?v=${stamp}`;
+};
 </script>
 
 <template>
@@ -42,7 +50,10 @@ const workflow = [
         <p class="card-kicker">{{ deck.status }}</p>
         <h2>{{ deck.title }}</h2>
         <p>{{ deck.summary }}</p>
-        <a class="text-link" :href="deck.href">Open {{ deck.slug }}</a>
+        <div class="link-row">
+          <a class="text-link" :href="deck.href">Open {{ deck.slug }}</a>
+          <a class="text-link text-link-muted" :href="withFreshQuery(deck.href)">Open fresh copy</a>
+        </div>
       </article>
     </section>
   </div>

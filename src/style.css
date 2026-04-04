@@ -285,6 +285,17 @@ code {
   font-weight: 600;
 }
 
+.link-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+
+.text-link-muted {
+  color: var(--muted);
+  font-weight: 500;
+}
+
 .steps-list {
   margin: 0;
   padding-left: 1.2rem;
