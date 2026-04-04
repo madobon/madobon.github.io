@@ -132,6 +132,7 @@ layout: center
 
 - For app changes, run `vp check` and `pnpm run build`.
 - For deck/theme changes, run `vp check` and a deck build such as:
+- After every push to `madobon.github.io`, check the GitHub Actions / CI result for the pushed commit and confirm whether all required jobs succeeded before reporting completion.
 
 ```bash
 pnpm --dir talks/welcome exec slidev build slides.md --base /talks/welcome/ --out ../../dist/talks/welcome
