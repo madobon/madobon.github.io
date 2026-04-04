@@ -13,21 +13,24 @@
     "prepare": "vp config"
   },
   "dependencies": {
-    "@unhead/vue": "^2.1.12",
-    "@vitejs/plugin-vue": "^6.0.5",
-    "vite-ssg": "^28.3.0",
-    "vue": "^3.5.32",
-    "vue-router": "^5.0.4"
+    "@unhead/vue": "2.1.12",
+    "@vitejs/plugin-vue": "6.0.5",
+    "vite-ssg": "28.3.0",
+    "vue": "3.5.32",
+    "vue-router": "5.0.4"
   },
   "devDependencies": {
-    "concurrently": "^9.2.1",
-    "typescript": "~5.9.3",
-    "vite": "npm:@voidzero-dev/vite-plus-core@latest",
-    "vite-plus": "latest"
+    "concurrently": "9.2.1",
+    "typescript": "5.9.3",
+    "vite": "npm:@voidzero-dev/vite-plus-core@0.1.15",
+    "vite-plus": "0.1.15"
   },
   "overrides": {
-    "vite": "npm:@voidzero-dev/vite-plus-core@latest",
-    "vitest": "npm:@voidzero-dev/vite-plus-test@latest"
+    "vite": "npm:@voidzero-dev/vite-plus-core@0.1.15",
+    "vitest": "npm:@voidzero-dev/vite-plus-test@0.1.15"
   },
-  "packageManager": "pnpm@10.18.1"
+  "engines": {
+    "pnpm": "10.27.0"
+  },
+  "packageManager": "pnpm@10.27.0"
 }

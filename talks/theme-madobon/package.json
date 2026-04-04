@@ -8,12 +8,12 @@
   ],
   "type": "module",
   "dependencies": {
-    "three": "^0.183.2"
+    "three": "0.183.2"
   },
   "engines": {
     "slidev": ">=52.0.0"
   },
-  "packageManager": "pnpm@10.18.1",
+  "packageManager": "pnpm@10.27.0",
   "slidev": {
     "colorSchema": "dark",
     "defaults": {

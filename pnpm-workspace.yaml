@@ -1,2 +1,8 @@
 packages:
   - talks/*
+minimumReleaseAge: 1440
+blockExoticSubdeps: true
+strictDepBuilds: true
+trustPolicy: no-downgrade
+allowBuilds:
+  esbuild: true
