@@ -88,11 +88,31 @@ watch(
     </section>
 
     <section v-if="post" class="card blog-post-shell">
-      <div class="blog-back-link">
-        <a class="text-link" href="/blog/">Blog 一覧へ戻る</a>
+      <div class="blog-post-intro">
+        <div class="blog-back-link">
+          <a class="text-link" href="/blog/">Blog 一覧へ戻る</a>
+        </div>
+
+        <div class="blog-post-meta-row">
+          <p class="blog-post-meta-copy">
+            Published <strong>{{ post.displayDate }}</strong>
+          </p>
+
+          <div class="tag-cloud tag-cloud-left" aria-label="post tags">
+            <span
+              v-for="tag in post.tags.length > 0 ? post.tags : ['General']"
+              :key="tag"
+              class="signal-pill signal-pill-small"
+            >
+              {{ tag }}
+            </span>
+          </div>
+        </div>
       </div>
 
-      <article class="blog-prose" v-html="post.html" />
+      <div class="blog-article-frame">
+        <article class="blog-prose" v-html="post.html" />
+      </div>
     </section>
 
     <section v-if="relatedPosts.length > 0" class="grid split-grid feature-band related-posts-grid">
