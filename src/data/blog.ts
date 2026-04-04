@@ -11,6 +11,7 @@ export type BlogPost = {
   slug: string;
   title: string;
   date: string;
+  displayDate: string;
   summary: string;
   tags: string[];
   draft: boolean;
@@ -215,11 +216,13 @@ const normalizePost = (path: string, source: string): BlogPost => {
   const frontmatter = data as BlogFrontmatter;
   const fileSlug = path.split("/").pop()?.replace(/\.md$/, "") ?? "post";
   const slug = frontmatter.slug ?? fileSlug;
+  const date = frontmatter.date ?? "1970-01-01";
 
   return {
     slug,
     title: frontmatter.title ?? fileSlug,
-    date: frontmatter.date ?? "1970-01-01",
+    date,
+    displayDate: date.slice(0, 10),
     summary: frontmatter.summary ?? "",
     tags: frontmatter.tags ?? [],
     draft: frontmatter.draft ?? false,

@@ -22,7 +22,7 @@ const lanes = ["Notes", "Logs", "Snippets"];
 
     <section class="grid cards-grid cards-grid-featured">
       <article v-for="post in blogPosts" :key="post.slug" class="card nav-card blog-index-card">
-        <p class="card-kicker">{{ post.date }}</p>
+        <p class="card-kicker">{{ post.displayDate }}</p>
         <h2>{{ post.title }}</h2>
         <p>{{ post.summary }}</p>
         <div class="tag-cloud tag-cloud-left" aria-label="post tags">

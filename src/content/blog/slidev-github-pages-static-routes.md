@@ -1,6 +1,6 @@
 ---
 title: "GitHub Pages で Slidev の /1 を開くためにやったこと"
-date: "2026-04-04"
+date: "2026-04-04T20:30:00+09:00"
 summary: "GitHub Pages では Slidev の深いURLが 404 になったので、build 後に番号ディレクトリを増やして回避した記録です。"
 tags:
   - slidev

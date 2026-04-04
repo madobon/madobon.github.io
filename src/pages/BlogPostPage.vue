@@ -29,7 +29,7 @@ const relatedPosts = computed(() => {
       <div class="mini-stats">
         <div class="mini-stat">
           <span>Published</span>
-          <strong>{{ post.date }}</strong>
+          <strong>{{ post.displayDate }}</strong>
         </div>
         <div class="mini-stat">
           <span>Tags</span>
@@ -48,7 +48,7 @@ const relatedPosts = computed(() => {
 
     <section v-if="relatedPosts.length > 0" class="grid split-grid feature-band">
       <article v-for="entry in relatedPosts" :key="entry.slug" class="card nav-card">
-        <p class="card-kicker">{{ entry.date }}</p>
+        <p class="card-kicker">{{ entry.displayDate }}</p>
         <h2>{{ entry.title }}</h2>
         <p>{{ entry.summary }}</p>
         <div class="link-row">
