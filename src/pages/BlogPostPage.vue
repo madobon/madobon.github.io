@@ -78,8 +78,12 @@ watch(
       <article class="blog-prose" v-html="post.html" />
     </section>
 
-    <section v-if="relatedPosts.length > 0" class="grid split-grid feature-band">
-      <article v-for="entry in relatedPosts" :key="entry.slug" class="card nav-card">
+    <section v-if="relatedPosts.length > 0" class="grid split-grid feature-band related-posts-grid">
+      <article
+        v-for="entry in relatedPosts"
+        :key="entry.slug"
+        class="card nav-card related-post-card"
+      >
         <p class="card-kicker">{{ entry.displayDate }}</p>
         <h2>{{ entry.title }}</h2>
         <p>{{ entry.summary }}</p>
