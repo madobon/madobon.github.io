@@ -4,6 +4,8 @@ title: 今日ブログでやったこと
 info: |
   ブログ改善、Slidev 公開、markdown-it 置き換え、Mermaid 確認までを短くまとめたデッキ。
 layout: cover
+glow: full
+glowSeed: 8
 class: cover-stars
 drawings:
   persist: false
@@ -31,6 +33,8 @@ Qiita への導線追加から始めて、
 
 ---
 layout: open
+glow: right
+glowSeed: 14
 ---
 
 # 進めたこと
@@ -42,6 +46,8 @@ layout: open
 
 ---
 layout: open
+glow: bottom-left
+glowSeed: 21
 class: airy-slide
 ---
 
@@ -53,6 +59,8 @@ class: airy-slide
 
 ---
 layout: open
+glow: right
+glowSeed: 33
 ---
 
 # Markdown 周りの変更
@@ -64,6 +72,8 @@ layout: open
 
 ---
 layout: open
+glow: bottom
+glowSeed: 47
 ---
 
 # 今日の成果

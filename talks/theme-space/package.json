@@ -18,7 +18,7 @@
     "colorSchema": "dark",
     "defaults": {
       "layout": "default",
-      "transition": "fade",
+      "transition": "fade-out",
       "class": "text-white"
     }
   }

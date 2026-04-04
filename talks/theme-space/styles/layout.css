@@ -11,9 +11,7 @@
 
 .slidev-layout {
   background:
-    radial-gradient(circle at top, rgba(139, 211, 255, 0.16), transparent 26rem),
-    radial-gradient(circle at 78% 16%, rgba(255, 179, 107, 0.14), transparent 18rem),
-    radial-gradient(circle at 22% 82%, rgba(255, 141, 161, 0.08), transparent 22rem),
+    radial-gradient(circle at top, rgba(139, 211, 255, 0.14), transparent 24rem),
     linear-gradient(180deg, #07101f 0%, #030815 100%);
   color: #f8fafc;
 }
@@ -68,16 +66,12 @@
   position: absolute;
   inset: 0;
   z-index: 2;
-  background:
-    radial-gradient(circle at 18% 24%, rgba(139, 211, 255, 0.24), transparent 20rem),
-    radial-gradient(circle at 80% 16%, rgba(255, 179, 107, 0.18), transparent 16rem),
-    radial-gradient(circle at 74% 82%, rgba(255, 141, 161, 0.08), transparent 14rem),
-    linear-gradient(
-      90deg,
-      rgba(4, 9, 21, 0.8) 0%,
-      rgba(4, 9, 21, 0.42) 45%,
-      rgba(4, 9, 21, 0.18) 100%
-    );
+  background: linear-gradient(
+    90deg,
+    rgba(4, 9, 21, 0.8) 0%,
+    rgba(4, 9, 21, 0.42) 45%,
+    rgba(4, 9, 21, 0.18) 100%
+  );
   pointer-events: none;
 }
 
@@ -85,18 +79,12 @@
   position: absolute;
   inset: 0;
   z-index: 2;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(139, 211, 255, 0.18), transparent 18rem),
-    radial-gradient(circle at 80% 15%, rgba(255, 179, 107, 0.14), transparent 14rem),
-    linear-gradient(180deg, rgba(7, 16, 31, 0.02), rgba(3, 8, 21, 0.16));
+  background: linear-gradient(180deg, rgba(7, 16, 31, 0.02), rgba(3, 8, 21, 0.16));
   pointer-events: none;
 }
 
 .airy-slide .space-surface-glow {
-  background:
-    radial-gradient(circle at 18% 22%, rgba(139, 211, 255, 0.22), transparent 18rem),
-    radial-gradient(circle at 84% 16%, rgba(255, 179, 107, 0.16), transparent 14rem),
-    linear-gradient(180deg, rgba(7, 16, 31, 0.01), rgba(3, 8, 21, 0.1));
+  background: linear-gradient(180deg, rgba(7, 16, 31, 0.01), rgba(3, 8, 21, 0.1));
 }
 
 .space-cover-frame {
@@ -126,9 +114,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 32%),
-    radial-gradient(circle at top right, rgba(255, 179, 107, 0.08), transparent 12rem);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 32%);
   pointer-events: none;
 }
 

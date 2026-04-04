@@ -4,6 +4,8 @@ title: madobon.github.io へようこそ
 info: |
   再利用できる Slidev テーマと、宇宙空間を漂うパーティクルを試すためのデッキ。
 layout: cover
+glow: full
+glowSeed: 5
 class: cover-stars
 drawings:
   persist: false
@@ -31,6 +33,8 @@ download: false
 
 ---
 layout: open
+glow: right
+glowSeed: 12
 ---
 
 # このデッキの構成
@@ -42,6 +46,8 @@ layout: open
 
 ---
 layout: open
+glow: bottom-left
+glowSeed: 18
 class: airy-slide
 ---
 
