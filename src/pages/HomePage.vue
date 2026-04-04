@@ -1,19 +1,24 @@
 <script setup lang="ts">
 const highlights = [
   {
+    title: "About",
+    body: "プロフィール、仕事の進め方、このサイトで扱っていくテーマをまとめています。",
+    href: "/about/",
+  },
+  {
+    title: "Blog",
+    body: "技術メモ、短い記録、更新ログのような文章を積み上げていく場所です。",
+    href: "/blog/",
+  },
+  {
     title: "Projects",
-    body: "A place for tools, experiments, and the small systems that deserve to stay documented.",
+    body: "ツール、実験、あとで見返したい小さな仕組みを残していく場所です。",
     href: "/projects/",
   },
   {
     title: "Talks",
-    body: "Presentation archive prepared for Slidev so new decks can be published as static pages later.",
+    body: "Slidev を前提にした発表アーカイブで、新しいデッキも静的ページとして追加できます。",
     href: "/talks/",
-  },
-  {
-    title: "About",
-    body: "A short profile, working style, and the themes this site will revolve around.",
-    href: "/about/",
   },
 ];
 </script>
@@ -21,17 +26,18 @@ const highlights = [
 <template>
   <div class="page-stack">
     <section class="hero-panel">
-      <p class="eyebrow">Personal homepage</p>
+      <p class="eyebrow">個人ホームページ</p>
       <h1 class="hero-title">
         Build a homepage that can grow into notes, projects, and slide decks.
       </h1>
       <p class="hero-copy">
-        This site is set up as a static-first Vue application on Vite+, with route-based pages and a
-        clear path to publish Slidev talks under the same domain.
+        このサイトは Vite+ ベースの静的生成寄りな Vue
+        アプリとして構成してあり、ページ単位のルーティングを保ちながら、 同じドメイン配下で Slidev
+        の発表も公開しやすい形にしています。
       </p>
       <div class="hero-actions">
-        <a class="button button-solid" href="/projects/">See projects</a>
-        <a class="button button-ghost" href="/talks/">Plan talks</a>
+        <a class="button button-solid" href="/projects/">プロジェクトを見る</a>
+        <a class="button button-ghost" href="/talks/">発表一覧を見る</a>
       </div>
     </section>
 
@@ -40,26 +46,42 @@ const highlights = [
         <p class="card-kicker">{{ item.title }}</p>
         <h2>{{ item.title }}</h2>
         <p>{{ item.body }}</p>
-        <a class="text-link" :href="item.href">Open {{ item.title.toLowerCase() }}</a>
+        <div class="link-row">
+          <a
+            class="icon-link"
+            :href="item.href"
+            :aria-label="`${item.title} を開く`"
+            :title="`${item.title} を開く`"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M7 17L17 7M9 7h8v8"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+              />
+            </svg>
+          </a>
+        </div>
       </article>
     </section>
 
     <section class="grid split-grid">
       <article class="card">
-        <p class="card-kicker">Stack</p>
+        <p class="card-kicker">構成</p>
         <h2>Vite+, Vue, Vite SSG</h2>
         <p>
-          The site stays close to the Vite ecosystem while generating static pages that work well on
-          GitHub Pages.
+          Vite の構成に近いまま静的ページを生成できるので、GitHub Pages でも扱いやすく保てます。
         </p>
       </article>
 
       <article class="card accent-card">
-        <p class="card-kicker">Next step</p>
+        <p class="card-kicker">次の一歩</p>
         <h2>Attach Slidev decks under <code>/talks/</code></h2>
         <p>
-          Each deck can be built separately and copied into the public output without turning the
-          homepage itself into a slide app.
+          ホームページ自体をスライド用アプリにせず、それぞれのデッキを別ビルドして公開物に載せられます。
         </p>
       </article>
     </section>

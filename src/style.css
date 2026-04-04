@@ -1,25 +1,26 @@
 :root {
-  font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+  font-family: "IBM Plex Sans", "Avenir Next", "Segoe UI", sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color: #2a2430;
+  color: #d7e2f0;
   background:
-    radial-gradient(circle at top left, rgba(234, 120, 69, 0.28), transparent 28rem),
-    radial-gradient(circle at 85% 10%, rgba(248, 208, 116, 0.32), transparent 20rem),
-    linear-gradient(180deg, #fffaf2 0%, #f5efe7 100%);
+    radial-gradient(circle at top left, rgba(73, 208, 255, 0.18), transparent 28rem),
+    radial-gradient(circle at 85% 10%, rgba(112, 130, 255, 0.16), transparent 22rem),
+    radial-gradient(circle at 50% 100%, rgba(0, 255, 163, 0.08), transparent 30rem),
+    linear-gradient(180deg, #09111d 0%, #0d1625 48%, #070d16 100%);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --text: #2a2430;
-  --muted: #6f6578;
-  --panel: rgba(255, 252, 247, 0.86);
-  --panel-strong: #fffdf8;
-  --line: rgba(83, 56, 24, 0.14);
-  --shadow: 0 20px 60px rgba(100, 72, 28, 0.12);
-  --accent: #b74d2c;
-  --accent-soft: #f6d7c4;
-  --accent-strong: #5f2614;
+  --text: #d7e2f0;
+  --muted: #8fa0b5;
+  --panel: rgba(13, 22, 38, 0.78);
+  --panel-strong: rgba(17, 28, 47, 0.96);
+  --line: rgba(120, 157, 201, 0.18);
+  --shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+  --accent: #59d4ff;
+  --accent-soft: rgba(89, 212, 255, 0.14);
+  --accent-strong: #c5f4ff;
 }
 
 * {
@@ -51,9 +52,11 @@ select {
 }
 
 code {
-  font-family: "SFMono-Regular", "Cascadia Code", Consolas, monospace;
+  font-family: "Berkeley Mono", "SFMono-Regular", "Cascadia Code", Consolas, monospace;
   font-size: 0.92em;
-  background: rgba(122, 85, 49, 0.08);
+  color: #9fe7ff;
+  background: rgba(71, 100, 141, 0.18);
+  border: 1px solid rgba(117, 166, 216, 0.18);
   border-radius: 0.45rem;
   padding: 0.15rem 0.4rem;
 }
@@ -83,13 +86,13 @@ code {
 .ambient-left {
   top: -8rem;
   left: -10rem;
-  background: rgba(247, 123, 66, 0.28);
+  background: rgba(68, 197, 255, 0.22);
 }
 
 .ambient-right {
   top: 12rem;
   right: -10rem;
-  background: rgba(255, 224, 133, 0.28);
+  background: rgba(96, 117, 255, 0.18);
 }
 
 .site-header {
@@ -112,10 +115,10 @@ code {
   width: 2.75rem;
   height: 2.75rem;
   border-radius: 0.9rem;
-  font-family: Georgia, "Iowan Old Style", serif;
+  font-family: "Berkeley Mono", "SFMono-Regular", "Cascadia Code", monospace;
   font-size: 1.55rem;
-  color: #fffaf4;
-  background: linear-gradient(135deg, #c45a34 0%, #81421d 100%);
+  color: #04111f;
+  background: linear-gradient(135deg, #72e3ff 0%, #27b3ff 100%);
   box-shadow: var(--shadow);
 }
 
@@ -127,7 +130,7 @@ code {
 
 .brand-copy strong {
   font-size: 1rem;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
 }
 
 .brand-copy small,
@@ -150,12 +153,14 @@ code {
   padding: 0.65rem 0.9rem;
   border-radius: 999px;
   color: var(--muted);
+  border: 1px solid transparent;
 }
 
 .nav-link.router-link-active {
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(89, 212, 255, 0.1);
   color: var(--accent-strong);
-  box-shadow: inset 0 0 0 1px rgba(183, 77, 44, 0.14);
+  border-color: rgba(89, 212, 255, 0.22);
+  box-shadow: inset 0 0 0 1px rgba(89, 212, 255, 0.08);
 }
 
 .page-frame {
@@ -195,21 +200,22 @@ code {
   width: 10rem;
   height: 10rem;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(89, 212, 255, 0.08);
 }
 
 .hero-title,
 .page-heading h1,
 .card h2 {
   margin: 0;
-  font-family: Georgia, "Iowan Old Style", serif;
+  font-family: "IBM Plex Sans", "Avenir Next", sans-serif;
   line-height: 1.05;
-  color: #21161e;
+  color: #f5fbff;
+  letter-spacing: -0.03em;
 }
 
 .hero-title {
   max-width: 14ch;
-  font-size: clamp(2.9rem, 7vw, 5.8rem);
+  font-size: clamp(1.85rem, 4.2vw, 3.5rem);
 }
 
 .hero-copy,
@@ -247,14 +253,14 @@ code {
 }
 
 .button-solid {
-  color: #fff8f3;
-  background: linear-gradient(135deg, #bf5d34 0%, #8a391d 100%);
-  box-shadow: 0 14px 30px rgba(138, 57, 29, 0.22);
+  color: #04111f;
+  background: linear-gradient(135deg, #73e3ff 0%, #2ac7ff 100%);
+  box-shadow: 0 14px 30px rgba(13, 123, 165, 0.32);
 }
 
 .button-ghost {
-  border-color: rgba(122, 72, 42, 0.12);
-  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(89, 212, 255, 0.18);
+  background: rgba(18, 31, 52, 0.72);
   color: var(--accent-strong);
 }
 
@@ -264,7 +270,7 @@ code {
 }
 
 .cards-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
 .split-grid {
@@ -277,7 +283,8 @@ code {
 }
 
 .accent-card {
-  background: linear-gradient(135deg, rgba(247, 214, 196, 0.95) 0%, rgba(255, 246, 234, 0.92) 100%);
+  background: linear-gradient(135deg, rgba(17, 35, 58, 0.96) 0%, rgba(10, 24, 43, 0.96) 100%);
+  border-color: rgba(89, 212, 255, 0.24);
 }
 
 .text-link {
@@ -289,6 +296,7 @@ code {
   display: flex;
   flex-wrap: wrap;
   gap: 0.9rem;
+  margin-top: auto;
 }
 
 .text-link-muted {
@@ -296,13 +304,61 @@ code {
   font-weight: 500;
 }
 
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 999px;
+  color: var(--accent);
+  border: 1px solid rgba(89, 212, 255, 0.18);
+  background: rgba(89, 212, 255, 0.08);
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.icon-link:hover {
+  transform: translateY(-1px);
+  background: rgba(89, 212, 255, 0.16);
+  border-color: rgba(89, 212, 255, 0.28);
+}
+
+.icon-link svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.icon-link-muted {
+  color: var(--muted);
+  background: rgba(143, 160, 181, 0.08);
+  border-color: rgba(143, 160, 181, 0.14);
+}
+
+.icon-link-muted:hover {
+  color: var(--accent-strong);
+  background: rgba(143, 160, 181, 0.14);
+  border-color: rgba(143, 160, 181, 0.22);
+}
+
 .steps-list {
   margin: 0;
   padding-left: 1.2rem;
 }
 
+.hero-panel,
+.page-heading {
+  background: linear-gradient(180deg, rgba(14, 24, 41, 0.88) 0%, rgba(11, 19, 33, 0.82) 100%);
+}
+
+.card {
+  background: linear-gradient(180deg, rgba(16, 26, 44, 0.84) 0%, rgba(11, 19, 33, 0.78) 100%);
+}
+
 @media (max-width: 900px) {
-  .cards-grid,
   .split-grid {
     grid-template-columns: 1fr;
   }
@@ -314,6 +370,13 @@ code {
 
   .site-nav {
     justify-content: flex-start;
+  }
+}
+
+@media (max-width: 700px) {
+  .cards-grid,
+  .split-grid {
+    grid-template-columns: 1fr;
   }
 }
 

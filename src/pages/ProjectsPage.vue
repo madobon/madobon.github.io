@@ -2,20 +2,19 @@
 const projects = [
   {
     name: "madobon.github.io",
-    status: "Now building",
-    summary:
-      "This homepage itself. It is the anchor for public notes, talks, and future experiments.",
+    status: "構築中",
+    summary: "このホームページ自体です。公開ノート、発表、今後の実験をまとめる基点になります。",
   },
   {
     name: "Slide decks",
-    status: "Planned",
-    summary:
-      "Slidev presentations can be published under this site once talk-specific builds are added.",
+    status: "準備中",
+    summary: "発表ごとのビルドを追加すれば、Slidev の資料をこのサイト配下で公開できます。",
   },
   {
     name: "Utilities and notes",
-    status: "Open-ended",
-    summary: "Use this page as the running index of anything worth keeping public and searchable.",
+    status: "継続追加",
+    summary:
+      "公開して残しておきたいもの、あとから検索できるようにしたいものをここに蓄積していきます。",
   },
 ];
 </script>
@@ -26,8 +25,7 @@ const projects = [
       <p class="eyebrow">Projects</p>
       <h1>A simple project index.</h1>
       <p>
-        Start with a few durable entries. As the site grows, this page can become a changelog of
-        tools, experiments, and posts.
+        まずは長く残したい項目だけを置き、サイトの成長に合わせてツール、実験、投稿の記録へ広げていきます。
       </p>
     </section>
 

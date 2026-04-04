@@ -2,9 +2,9 @@
 import { talks } from "../data/talks";
 
 const workflow = [
-  "Create each deck in a Slidev project or subdirectory.",
-  "Build the deck as static files with the correct base path.",
-  "Publish the output under /talks/<slug>/ on this site.",
+  "各デッキを Slidev プロジェクト、またはサブディレクトリとして作成する。",
+  "正しい base path を指定して静的ファイルとしてビルドする。",
+  "出力結果をこのサイトの /talks/<slug>/ 配下に配置して公開する。",
 ];
 
 const withFreshQuery = (href: string) => {
@@ -22,23 +22,21 @@ const withFreshQuery = (href: string) => {
       <p class="eyebrow">Talks</p>
       <h1>Prepared for Slidev-based talk publishing.</h1>
       <p>
-        The homepage is separate from the slides. That keeps the site flexible while still letting
-        you host decks on the same domain.
+        ホームページ本体とスライドを分けているので、サイト全体の自由度を保ちながら同じドメインで資料を公開できます。
       </p>
     </section>
 
     <section class="grid split-grid">
       <article class="card accent-card">
-        <p class="card-kicker">Recommended path</p>
+        <p class="card-kicker">おすすめ構成</p>
         <h2>Publish decks under <code>/talks/&lt;slug&gt;/</code></h2>
         <p>
-          This avoids coupling the homepage build to a single slide deck and matches the long-term
-          operation you described.
+          こうしておくとホームページのビルドが単一のスライドに引きずられず、長期的にも運用しやすくなります。
         </p>
       </article>
 
       <article class="card">
-        <p class="card-kicker">Workflow</p>
+        <p class="card-kicker">手順</p>
         <ol class="steps-list">
           <li v-for="step in workflow" :key="step">{{ step }}</li>
         </ol>
@@ -51,8 +49,40 @@ const withFreshQuery = (href: string) => {
         <h2>{{ deck.title }}</h2>
         <p>{{ deck.summary }}</p>
         <div class="link-row">
-          <a class="text-link" :href="deck.href">Open {{ deck.slug }}</a>
-          <a class="text-link text-link-muted" :href="withFreshQuery(deck.href)">Open fresh copy</a>
+          <a
+            class="icon-link"
+            :href="deck.href"
+            :aria-label="`${deck.slug} を開く`"
+            :title="`${deck.slug} を開く`"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M7 17L17 7M9 7h8v8"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+              />
+            </svg>
+          </a>
+          <a
+            class="icon-link icon-link-muted"
+            :href="withFreshQuery(deck.href)"
+            aria-label="最新状態で開く"
+            title="最新状態で開く"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M20 11a8 8 0 10-2.35 5.65M20 4v7h-7"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+              />
+            </svg>
+          </a>
         </div>
       </article>
     </section>

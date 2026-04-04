@@ -11,7 +11,8 @@ export const talks: TalkEntry[] = [
     slug: "welcome",
     title: "Welcome to the Drift",
     href: "/talks/welcome/",
-    status: "Interactive Slidev deck",
-    summary: "A reusable custom Slidev theme with a Three.js starfield and depth-moving particles.",
+    status: "インタラクティブな Slidev デッキ",
+    summary:
+      "Three.js の星空表現と奥行きのあるパーティクルを組み込んだ、再利用可能なカスタム Slidev テーマです。",
   },
 ];

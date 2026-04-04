@@ -4,27 +4,24 @@
       <p class="eyebrow">About</p>
       <h1>A compact personal profile page.</h1>
       <p>
-        Replace this copy with your background, interests, current focus, and the kind of work you
-        want this site to document.
+        ここには経歴、関心ごと、今の注力領域、このサイトで記録していきたい仕事や活動を書いていけます。
       </p>
     </section>
 
     <section class="grid split-grid">
       <article class="card">
-        <p class="card-kicker">Focus</p>
+        <p class="card-kicker">方針</p>
         <h2>Build things that stay maintainable</h2>
         <p>
-          This layout favors a straightforward information architecture: a homepage, profile,
-          project list, and talk archive.
+          ホーム、プロフィール、プロジェクト一覧、発表アーカイブという素直な情報設計に寄せています。
         </p>
       </article>
 
       <article class="card">
-        <p class="card-kicker">Writing style</p>
+        <p class="card-kicker">書き方</p>
         <h2>Notes first, polish second</h2>
         <p>
-          It is meant to work as an evolving homepage, not a fixed brochure. Pages can stay small
-          and grow over time.
+          固定的なパンフレットではなく、少しずつ育てていくホームページとして使う想定です。各ページは小さく始めて、必要に応じて広げられます。
         </p>
       </article>
     </section>

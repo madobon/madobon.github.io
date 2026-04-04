@@ -7,6 +7,7 @@ const route = useRoute();
 const navigation = [
   { href: "/", label: "Home" },
   { href: "/about/", label: "About" },
+  { href: "/blog/", label: "Blog" },
   { href: "/projects/", label: "Projects" },
   { href: "/talks/", label: "Talks" },
 ];
@@ -26,7 +27,7 @@ watchEffect(() => {
   const description =
     typeof route.meta.description === "string"
       ? route.meta.description
-      : "A personal homepage built with Vite+, Vue, and Vite SSG.";
+      : "Vite+、Vue、Vite SSG で構築した個人ホームページ。";
 
   let meta = document.querySelector('meta[name="description"]');
   if (!meta) {
@@ -48,7 +49,7 @@ watchEffect(() => {
         <span class="brand-mark">m</span>
         <span class="brand-copy">
           <strong>madobon</strong>
-          <small>homepage</small>
+          <small>ホームページ</small>
         </span>
       </RouterLink>
 
