@@ -102,7 +102,7 @@ markdown.renderer.rules.fence = (tokens: Token[], index: number, options, _env, 
   const info = token.info.trim().split(/\s+/)[0];
 
   if (info === "mermaid") {
-    return `<pre class="mermaid">${markdown.utils.escapeHtml(token.content)}</pre>`;
+    return `<div class="mermaid">${markdown.utils.escapeHtml(token.content)}</div>`;
   }
 
   return defaultFenceRenderer(tokens, index, options, _env, self);
