@@ -2,6 +2,7 @@ import type { RouteRecordRaw } from "vue-router";
 
 import AboutPage from "./pages/AboutPage.vue";
 import BlogPage from "./pages/BlogPage.vue";
+import BlogPostPage from "./pages/BlogPostPage.vue";
 import HomePage from "./pages/HomePage.vue";
 import ProjectsPage from "./pages/ProjectsPage.vue";
 import TalksPage from "./pages/TalksPage.vue";
@@ -29,6 +30,14 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       title: "Blog",
       description: "ノート、技術メモ、更新ログを置いていく場所。",
+    },
+  },
+  {
+    path: "/blog/:slug/",
+    component: BlogPostPage,
+    meta: {
+      title: "Blog",
+      description: "ブログ記事詳細。",
     },
   },
   {

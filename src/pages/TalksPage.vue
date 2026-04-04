@@ -7,6 +7,8 @@ const workflow = [
   "出力結果をこのサイトの /talks/<slug>/ 配下に配置して公開する。",
 ];
 
+const talkModes = ["Deck archive", "Static export", "Shared domain"];
+
 const withFreshQuery = (href: string) => {
   const stamp = new Date()
     .toISOString()
@@ -18,37 +20,44 @@ const withFreshQuery = (href: string) => {
 
 <template>
   <div class="page-stack">
-    <section class="page-heading">
-      <p class="eyebrow">Talks</p>
-      <h1>Prepared for Slidev-based talk publishing.</h1>
-      <p>
-        ホームページ本体とスライドを分けているので、サイト全体の自由度を保ちながら同じドメインで資料を公開できます。
-      </p>
+    <section class="page-heading page-heading-split">
+      <div>
+        <p class="eyebrow">Talks</p>
+        <h1>Slidev-based talk publishing with the same visual language as the site.</h1>
+        <p>
+          ホームページ本体とスライドを分けているので、サイト全体の自由度を保ちながら同じドメインで資料を公開できます。
+        </p>
+      </div>
+
+      <div class="tag-cloud" aria-label="talk modes">
+        <span v-for="mode in talkModes" :key="mode" class="signal-pill">{{ mode }}</span>
+      </div>
     </section>
 
-    <section class="grid split-grid">
-      <article class="card accent-card">
-        <p class="card-kicker">おすすめ構成</p>
+    <section class="grid split-grid feature-band">
+      <article class="card accent-card statement-card">
+        <p class="card-kicker">Recommended structure</p>
         <h2>Publish decks under <code>/talks/&lt;slug&gt;/</code></h2>
         <p>
           こうしておくとホームページのビルドが単一のスライドに引きずられず、長期的にも運用しやすくなります。
         </p>
       </article>
 
-      <article class="card">
-        <p class="card-kicker">手順</p>
+      <article class="card checklist-card">
+        <p class="card-kicker">Workflow</p>
         <ol class="steps-list">
           <li v-for="step in workflow" :key="step">{{ step }}</li>
         </ol>
       </article>
     </section>
 
-    <section class="grid cards-grid">
-      <article v-for="deck in talks" :key="deck.href" class="card">
+    <section class="grid cards-grid cards-grid-featured">
+      <article v-for="deck in talks" :key="deck.href" class="card nav-card">
         <p class="card-kicker">{{ deck.status }}</p>
         <h2>{{ deck.title }}</h2>
         <p>{{ deck.summary }}</p>
         <div class="link-row">
+          <a class="text-link" :href="deck.href">デッキを開く</a>
           <a
             class="icon-link"
             :href="deck.href"

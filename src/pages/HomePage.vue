@@ -4,49 +4,103 @@ const highlights = [
     title: "About",
     body: "プロフィール、仕事の進め方、このサイトで扱っていくテーマをまとめています。",
     href: "/about/",
+    note: "Profile and approach",
   },
   {
     title: "Blog",
     body: "技術メモ、短い記録、更新ログのような文章を積み上げていく場所です。",
     href: "/blog/",
+    note: "Notes and changelog",
   },
   {
     title: "Projects",
     body: "ツール、実験、あとで見返したい小さな仕組みを残していく場所です。",
     href: "/projects/",
+    note: "Tools and experiments",
   },
   {
     title: "Talks",
     body: "Slidev を前提にした発表アーカイブで、新しいデッキも静的ページとして追加できます。",
     href: "/talks/",
+    note: "Deck archive",
+  },
+];
+
+const signals = ["Notes first", "Small tools", "Slidev ready", "Static-friendly"];
+
+const snapshots = [
+  {
+    value: "04",
+    label: "core sections",
+  },
+  {
+    value: "SSG",
+    label: "site foundation",
+  },
+  {
+    value: "Slidev",
+    label: "talk workflow",
+  },
+];
+
+const principles = [
+  {
+    title: "育てやすい構成",
+    body: "ホーム、ノート、プロジェクト、発表を素直に分けて、あとから無理なく増築できるようにしています。",
+  },
+  {
+    title: "公開しやすい記録",
+    body: "完成品だけでなく、途中のメモや意思決定も残せる形にして、検索しやすい個人アーカイブへ寄せています。",
+  },
+  {
+    title: "発表も同じドメインで",
+    body: "サイト本体とスライドを分離しつつ、公開先はひとつにまとめて、運用と見通しの両方を保ちます。",
   },
 ];
 </script>
 
 <template>
   <div class="page-stack">
-    <section class="hero-panel">
-      <p class="eyebrow">個人ホームページ</p>
-      <h1 class="hero-title">
-        Build a homepage that can grow into notes, projects, and slide decks.
-      </h1>
-      <p class="hero-copy">
-        このサイトは Vite+ ベースの静的生成寄りな Vue
-        アプリとして構成してあり、ページ単位のルーティングを保ちながら、 同じドメイン配下で Slidev
-        の発表も公開しやすい形にしています。
-      </p>
-      <div class="hero-actions">
-        <a class="button button-solid" href="/projects/">プロジェクトを見る</a>
-        <a class="button button-ghost" href="/talks/">発表一覧を見る</a>
+    <section class="hero-panel hero-layout">
+      <div class="hero-copy-block">
+        <p class="eyebrow">Personal site / notes / talks</p>
+        <h1 class="hero-title">Notes, projects, and decks collected into one quiet base.</h1>
+        <p class="hero-copy">
+          このサイトは、書き散らしたメモをあとから拾い直せて、発表資料も同じ流れで公開できる個人サイトとして組んでいます。派手さよりも、長く育てやすい構成を優先しています。
+        </p>
+
+        <div class="signal-row" aria-label="site signals">
+          <span v-for="signal in signals" :key="signal" class="signal-pill">{{ signal }}</span>
+        </div>
+
+        <div class="hero-actions">
+          <a class="button button-solid" href="/projects/">プロジェクトを見る</a>
+          <a class="button button-ghost" href="/talks/">発表一覧を見る</a>
+        </div>
       </div>
+
+      <aside class="hero-aside card feature-card">
+        <p class="card-kicker">Site snapshot</p>
+        <h2>Built to keep shipping small things without losing the shape of the whole.</h2>
+        <div class="snapshot-grid">
+          <div v-for="item in snapshots" :key="item.label" class="snapshot-item">
+            <strong>{{ item.value }}</strong>
+            <span>{{ item.label }}</span>
+          </div>
+        </div>
+        <p class="feature-note">
+          Vite+ と Vue を土台にして、ページとスライドを別々に保ちながら、公開体験は一つに揃えます。
+        </p>
+      </aside>
     </section>
 
-    <section class="grid cards-grid">
-      <article v-for="item in highlights" :key="item.title" class="card">
-        <p class="card-kicker">{{ item.title }}</p>
+    <section class="grid cards-grid cards-grid-featured">
+      <article v-for="item in highlights" :key="item.title" class="card nav-card">
+        <p class="card-kicker">{{ item.note }}</p>
         <h2>{{ item.title }}</h2>
         <p>{{ item.body }}</p>
         <div class="link-row">
+          <a class="text-link" :href="item.href">{{ item.title }} を開く</a>
           <a
             class="icon-link"
             :href="item.href"
@@ -68,21 +122,31 @@ const highlights = [
       </article>
     </section>
 
-    <section class="grid split-grid">
-      <article class="card">
-        <p class="card-kicker">構成</p>
-        <h2>Vite+, Vue, Vite SSG</h2>
+    <section class="grid split-grid feature-band">
+      <article class="card accent-card statement-card">
+        <p class="card-kicker">Approach</p>
+        <h2>Structure first, decoration second, but never plain.</h2>
         <p>
-          Vite の構成に近いまま静的ページを生成できるので、GitHub Pages でも扱いやすく保てます。
+          更新しやすい情報設計を軸にしつつ、単なるプレースホルダーに見えないよう、見出しの強さと面の重なりで印象を作っています。
         </p>
       </article>
 
-      <article class="card accent-card">
-        <p class="card-kicker">次の一歩</p>
-        <h2>Attach Slidev decks under <code>/talks/</code></h2>
-        <p>
-          ホームページ自体をスライド用アプリにせず、それぞれのデッキを別ビルドして公開物に載せられます。
-        </p>
+      <article class="card checklist-card">
+        <p class="card-kicker">What lives here</p>
+        <ul class="feature-list">
+          <li>あとで参照したい技術メモ</li>
+          <li>小さく公開しておきたい実験や道具</li>
+          <li>Slidev で作った発表資料</li>
+          <li>構成変更や更新のログ</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="grid cards-grid">
+      <article v-for="principle in principles" :key="principle.title" class="card principle-card">
+        <p class="card-kicker">Design principle</p>
+        <h2>{{ principle.title }}</h2>
+        <p>{{ principle.body }}</p>
       </article>
     </section>
   </div>
