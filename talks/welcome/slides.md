@@ -24,7 +24,7 @@ particles drift through a deep-space field while the core object subtly reacts t
 
 ---
 
-## layout: center
+layout: center
 
 # Stack
 
@@ -35,7 +35,7 @@ particles drift through a deep-space field while the core object subtly reacts t
 
 ---
 
-## layout: center
+layout: center
 
 # Next
 

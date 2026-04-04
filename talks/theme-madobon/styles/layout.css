@@ -44,6 +44,15 @@
   align-items: center;
 }
 
+.madobon-cover-frame {
+  width: 100%;
+}
+
+.madobon-cover-panel {
+  width: min(100%, 72rem);
+  margin: 0 auto;
+}
+
 .madobon-cover h1,
 .madobon-center h1,
 .madobon-default h1,
