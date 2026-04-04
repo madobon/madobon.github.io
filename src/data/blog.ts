@@ -1,7 +1,11 @@
+import MarkdownIt from "markdown-it";
+import type Token from "markdown-it/lib/token.mjs";
+import type Renderer from "markdown-it/lib/renderer.mjs";
+
 type BlogFrontmatter = {
-  title: string;
-  date: string;
-  summary: string;
+  title?: string;
+  date?: string;
+  summary?: string;
   tags?: string[];
   draft?: boolean;
   slug?: string;
@@ -25,23 +29,9 @@ const postModules = import.meta.glob("../content/blog/*.md", {
   import: "default",
 }) as Record<string, string>;
 
-const escapeHtml = (value: string) =>
-  value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
-
 const parseScalar = (value: string) => {
-  if (value === "true") {
-    return true;
-  }
-
-  if (value === "false") {
-    return false;
-  }
-
+  if (value === "true") return true;
+  if (value === "false") return false;
   return value.replace(/^["']|["']$/g, "");
 };
 
@@ -62,9 +52,7 @@ const parseFrontmatter = (source: string) => {
 
   for (let index = 0; index < lines.length; index += 1) {
     const line = lines[index];
-    if (!line.includes(":")) {
-      continue;
-    }
+    if (!line.includes(":")) continue;
 
     const separator = line.indexOf(":");
     const key = line.slice(0, separator).trim();
@@ -96,138 +84,53 @@ const parseFrontmatter = (source: string) => {
   return { data, body };
 };
 
-const applyInlineMarkdown = (value: string) =>
-  value
-    .replace(/`([^`]+)`/g, "<code>$1</code>")
-    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
-    .replace(/\*([^*]+)\*/g, "<em>$1</em>")
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+const markdown = new MarkdownIt({
+  html: false,
+  linkify: true,
+  typographer: true,
+  breaks: false,
+});
 
-const renderMarkdown = (source: string) => {
-  const lines = source.split("\n");
-  const html: string[] = [];
-  let paragraph: string[] = [];
-  let listItems: string[] = [];
-  let orderedItems: string[] = [];
-  let codeFence: string[] | null = null;
+type FenceRenderer = NonNullable<Renderer["rules"]["fence"]>;
 
-  const flushParagraph = () => {
-    if (paragraph.length === 0) {
-      return;
-    }
+const defaultFenceRenderer: FenceRenderer =
+  markdown.renderer.rules.fence ??
+  ((tokens, index, options, _env, self) => self.renderToken(tokens, index, options));
 
-    const text = paragraph.join(" ");
-    html.push(`<p>${applyInlineMarkdown(escapeHtml(text))}</p>`);
-    paragraph = [];
-  };
+markdown.renderer.rules.fence = (tokens: Token[], index: number, options, _env, self) => {
+  const token = tokens[index];
+  const info = token.info.trim().split(/\s+/)[0];
 
-  const flushList = () => {
-    if (listItems.length > 0) {
-      html.push(
-        `<ul>${listItems.map((item) => `<li>${applyInlineMarkdown(escapeHtml(item))}</li>`).join("")}</ul>`,
-      );
-      listItems = [];
-    }
-
-    if (orderedItems.length > 0) {
-      html.push(
-        `<ol>${orderedItems.map((item) => `<li>${applyInlineMarkdown(escapeHtml(item))}</li>`).join("")}</ol>`,
-      );
-      orderedItems = [];
-    }
-  };
-
-  for (const line of lines) {
-    const trimmed = line.trim();
-
-    if (trimmed.startsWith("```")) {
-      flushParagraph();
-      flushList();
-
-      if (codeFence) {
-        html.push(`<pre><code>${escapeHtml(codeFence.join("\n"))}</code></pre>`);
-        codeFence = null;
-      } else {
-        codeFence = [];
-      }
-      continue;
-    }
-
-    if (codeFence) {
-      codeFence.push(line);
-      continue;
-    }
-
-    if (trimmed === "") {
-      flushParagraph();
-      flushList();
-      continue;
-    }
-
-    if (trimmed.startsWith("- ")) {
-      flushParagraph();
-      orderedItems = [];
-      listItems.push(trimmed.slice(2).trim());
-      continue;
-    }
-
-    if (/^\d+\.\s/.test(trimmed)) {
-      flushParagraph();
-      listItems = [];
-      orderedItems.push(trimmed.replace(/^\d+\.\s/, ""));
-      continue;
-    }
-
-    flushList();
-
-    if (trimmed.startsWith("### ")) {
-      flushParagraph();
-      html.push(`<h3>${applyInlineMarkdown(escapeHtml(trimmed.slice(4).trim()))}</h3>`);
-      continue;
-    }
-
-    if (trimmed.startsWith("## ")) {
-      flushParagraph();
-      html.push(`<h2>${applyInlineMarkdown(escapeHtml(trimmed.slice(3).trim()))}</h2>`);
-      continue;
-    }
-
-    if (trimmed.startsWith("# ")) {
-      flushParagraph();
-      html.push(`<h1>${applyInlineMarkdown(escapeHtml(trimmed.slice(2).trim()))}</h1>`);
-      continue;
-    }
-
-    paragraph.push(trimmed);
+  if (info === "mermaid") {
+    return `<pre class="mermaid">${markdown.utils.escapeHtml(token.content)}</pre>`;
   }
 
-  flushParagraph();
-  flushList();
-
-  if (codeFence) {
-    html.push(`<pre><code>${escapeHtml(codeFence.join("\n"))}</code></pre>`);
-  }
-
-  return html.join("\n");
+  return defaultFenceRenderer(tokens, index, options, _env, self);
 };
+
+const normalizeString = (value: unknown, fallback = "") =>
+  typeof value === "string" ? value : fallback;
+
+const normalizeTags = (value: unknown) =>
+  Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : [];
 
 const normalizePost = (path: string, source: string): BlogPost => {
   const { data, body } = parseFrontmatter(source);
   const frontmatter = data as BlogFrontmatter;
   const fileSlug = path.split("/").pop()?.replace(/\.md$/, "") ?? "post";
-  const slug = frontmatter.slug ?? fileSlug;
-  const date = frontmatter.date ?? "1970-01-01";
+  const slug = normalizeString(frontmatter.slug, fileSlug);
+  const date = normalizeString(frontmatter.date, "1970-01-01");
 
   return {
     slug,
-    title: frontmatter.title ?? fileSlug,
+    title: normalizeString(frontmatter.title, fileSlug),
     date,
     displayDate: date.slice(0, 10),
-    summary: frontmatter.summary ?? "",
-    tags: frontmatter.tags ?? [],
-    draft: frontmatter.draft ?? false,
+    summary: normalizeString(frontmatter.summary),
+    tags: normalizeTags(frontmatter.tags),
+    draft: frontmatter.draft === true,
     body,
-    html: renderMarkdown(body),
+    html: markdown.render(body),
   };
 };
 

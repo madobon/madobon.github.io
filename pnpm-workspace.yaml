@@ -1,8 +1,10 @@
 packages:
   - talks/*
 minimumReleaseAge: 1440
+minimumReleaseAgeExclude:
+  - "@asamuzakjp/css-color"
+  - "baseline-browser-mapping"
 blockExoticSubdeps: true
 strictDepBuilds: true
-trustPolicy: no-downgrade
 allowBuilds:
   esbuild: true

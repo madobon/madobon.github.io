@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, nextTick, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
 
 import { blogPosts, getBlogPostBySlug } from "../data/blog";
@@ -15,6 +15,38 @@ const relatedPosts = computed(() => {
 
   return blogPosts.filter((entry) => entry.slug !== post.value?.slug).slice(0, 2);
 });
+
+async function renderMermaid() {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  const mermaidBlocks = document.querySelectorAll(".blog-prose .mermaid");
+  if (mermaidBlocks.length === 0) {
+    return;
+  }
+
+  const mermaid = (await import("mermaid")).default;
+  mermaid.initialize({
+    startOnLoad: false,
+    theme: "dark",
+    securityLevel: "loose",
+  });
+  await mermaid.run({
+    nodes: Array.from(mermaidBlocks),
+  });
+}
+
+onMounted(() => {
+  void nextTick(renderMermaid);
+});
+
+watch(
+  () => post.value?.slug,
+  () => {
+    void nextTick(renderMermaid);
+  },
+);
 </script>
 
 <template>
