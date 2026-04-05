@@ -1033,8 +1033,8 @@ code {
 }
 
 .blog-post-shell {
-  gap: 1.2rem;
-  padding: clamp(1rem, 2.6vw, 1.4rem);
+  gap: clamp(1.35rem, 1.2vw + 1rem, 1.8rem);
+  padding: clamp(0.9rem, 2vw + 0.4rem, 1.4rem);
   background:
     radial-gradient(circle at top right, rgba(114, 219, 255, 0.08), transparent 20rem),
     linear-gradient(180deg, rgba(16, 27, 45, 0.88) 0%, rgba(11, 18, 31, 0.84) 100%);
@@ -1048,7 +1048,21 @@ code {
 
 .blog-post-intro {
   display: grid;
-  gap: 0.9rem;
+  gap: clamp(0.8rem, 0.6vw + 0.65rem, 1rem);
+}
+
+.blog-page-heading > div {
+  max-width: 100%;
+}
+
+.blog-page-heading h1 {
+  margin-bottom: clamp(0.5rem, 0.45vw + 0.38rem, 0.8rem);
+}
+
+.blog-page-heading p {
+  margin: 0;
+  max-width: 100%;
+  line-height: 1.58;
 }
 
 .blog-post-meta-row {
@@ -1056,8 +1070,8 @@ code {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 0.9rem;
-  padding: 0.95rem 1rem;
+  gap: clamp(0.7rem, 1vw + 0.4rem, 0.9rem);
+  padding: clamp(0.72rem, 1vw + 0.4rem, 0.95rem) clamp(0.78rem, 1.4vw + 0.35rem, 1rem);
   border: 1px solid var(--mini-panel-border);
   border-radius: 1.2rem;
   background:
@@ -1082,7 +1096,9 @@ code {
 
 .blog-article-frame {
   position: relative;
-  padding: clamp(1.1rem, 2.4vw, 2rem);
+  margin-top: clamp(0.35rem, 0.7vw + 0.18rem, 0.7rem);
+  padding: clamp(0.82rem, 1.2vw + 0.48rem, 1.1rem) clamp(0.68rem, 1.8vw + 0.3rem, 1.15rem)
+    clamp(0.88rem, 1.4vw + 0.42rem, 1.2rem) clamp(0.74rem, 1.8vw + 0.34rem, 1.2rem);
   border-radius: 1.7rem;
   border: 1px solid var(--mini-panel-border);
   background:
@@ -1095,7 +1111,8 @@ code {
 .blog-article-frame::before {
   content: "";
   position: absolute;
-  inset: 1.1rem auto 1.1rem 1.1rem;
+  inset: clamp(0.72rem, 1vw + 0.34rem, 1.1rem) auto clamp(0.72rem, 1vw + 0.34rem, 1.1rem)
+    clamp(0.62rem, 1.2vw + 0.28rem, 1.1rem);
   width: 2px;
   border-radius: 999px;
   background: linear-gradient(180deg, rgba(114, 219, 255, 0.42), rgba(255, 188, 134, 0.05));
@@ -1211,8 +1228,8 @@ code {
 .blog-prose li {
   max-width: none;
   color: var(--text);
-  font-size: 1.03rem;
-  line-height: 1.8;
+  font-size: clamp(0.965rem, 0.12vw + 0.93rem, 1.03rem);
+  line-height: clamp(1.68, 0.2vw + 1.62, 1.8);
 }
 
 .blog-prose > p:first-of-type {
@@ -1350,13 +1367,9 @@ code {
     align-items: flex-start;
   }
 
-  .blog-article-frame {
-    padding: 1.05rem 0.9rem 1.15rem 0.95rem;
-    border-radius: 1.35rem;
-  }
-
-  .blog-article-frame::before {
-    inset: 0.9rem auto 0.9rem 0.8rem;
+  .blog-page-heading > div,
+  .blog-prose {
+    max-width: 100%;
   }
 }
 
@@ -1382,6 +1395,29 @@ code {
     padding: 1.05rem;
   }
 
+  .blog-page-heading h1,
+  .blog-page-heading p {
+    max-width: 100%;
+    line-height: 1.58;
+  }
+
+  .blog-page-heading h1 {
+    margin-bottom: 0.45rem;
+  }
+
+  .blog-prose {
+    max-width: 100%;
+  }
+
+  .blog-prose h2 {
+    margin-top: 1.9rem;
+    font-size: clamp(1.6rem, 8vw, 1.95rem);
+  }
+
+  .blog-prose h3 {
+    font-size: clamp(1.15rem, 5.8vw, 1.4rem);
+  }
+
   .hero-title {
     max-width: 12ch;
     font-size: clamp(1.8rem, 11vw, 2.8rem);
@@ -1395,6 +1431,19 @@ code {
     width: 100%;
     justify-content: flex-start;
     border-radius: 1.2rem;
+  }
+
+  .signal-pill,
+  .signal-pill-small {
+    min-height: 1.65rem;
+    padding: 0.24rem 0.56rem;
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+  }
+
+  .signal-pill::before {
+    width: 0.34rem;
+    height: 0.34rem;
   }
 
   .theme-toggle {

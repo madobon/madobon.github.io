@@ -68,22 +68,11 @@ watch(
 
 <template>
   <div class="page-stack">
-    <section v-if="post" class="page-heading page-heading-split">
+    <section v-if="post" class="page-heading blog-page-heading">
       <div>
         <p class="eyebrow">Blog post</p>
         <h1>{{ post.title }}</h1>
         <p>{{ post.summary }}</p>
-      </div>
-
-      <div class="mini-stats">
-        <div class="mini-stat">
-          <span>Published</span>
-          <strong>{{ post.displayDate }}</strong>
-        </div>
-        <div class="mini-stat">
-          <span>Tags</span>
-          <strong>{{ post.tags.join(" / ") || "General" }}</strong>
-        </div>
       </div>
     </section>
 
