@@ -1070,7 +1070,8 @@ code {
 
 .blog-page-heading h1 {
   margin-bottom: clamp(0.5rem, 0.45vw + 0.38rem, 0.8rem);
-  font-size: clamp(2.3rem, 5.2vw, 4.4rem);
+  font-size: clamp(1.9rem, 3.4vw, 3rem);
+  line-height: 1.12;
 }
 
 .blog-page-heading p {
@@ -1477,7 +1478,7 @@ code {
   }
 
   .blog-page-heading h1 {
-    font-size: clamp(2rem, 7.8vw, 3.2rem);
+    font-size: clamp(1.8rem, 6.2vw, 2.6rem);
   }
 
   .blog-page-heading p {
