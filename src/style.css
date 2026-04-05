@@ -40,11 +40,6 @@
   --brand-ring-alt: rgba(89, 212, 255, 0.72);
   --brand-node: #dff8ff;
   --brand-node-alt: #6ee7ff;
-  --site-status-border: rgba(120, 157, 201, 0.14);
-  --site-status-background:
-    radial-gradient(circle at top right, rgba(114, 219, 255, 0.12), transparent 45%),
-    radial-gradient(circle at bottom left, rgba(255, 188, 134, 0.1), transparent 40%),
-    rgba(11, 19, 32, 0.54);
   --site-nav-border: rgba(120, 157, 201, 0.12);
   --site-nav-background: rgba(11, 19, 32, 0.38);
   --site-nav-inset: rgba(255, 255, 255, 0.02);
@@ -149,11 +144,6 @@
   --brand-ring-alt: rgba(73, 166, 221, 0.82);
   --brand-node: #eef9ff;
   --brand-node-alt: #33afe7;
-  --site-status-border: rgba(121, 147, 179, 0.18);
-  --site-status-background:
-    radial-gradient(circle at top right, rgba(73, 180, 255, 0.12), transparent 45%),
-    radial-gradient(circle at bottom left, rgba(255, 174, 102, 0.12), transparent 40%),
-    rgba(255, 252, 248, 0.68);
   --site-nav-border: rgba(121, 147, 179, 0.16);
   --site-nav-background: rgba(255, 252, 248, 0.58);
   --site-nav-inset: rgba(255, 255, 255, 0.65);
@@ -436,36 +426,6 @@ code {
   display: grid;
   justify-items: end;
   gap: 0.75rem;
-}
-
-.site-status {
-  display: inline-grid;
-  gap: 0.18rem;
-  padding: 0.8rem 1rem;
-  min-width: 9rem;
-  border-radius: 1.35rem;
-  border: 1px solid var(--site-status-border);
-  background: var(--site-status-background);
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.02),
-    var(--shadow-soft);
-}
-
-.site-status-label {
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-size: 0.68rem;
-  color: var(--muted);
-}
-
-.site-status strong {
-  color: var(--title);
-  font-size: 1rem;
-}
-
-.site-status-note {
-  color: var(--muted);
-  font-size: 0.78rem;
 }
 
 .brand-copy small,
@@ -1444,9 +1404,5 @@ code {
 
   .related-post-card h2 {
     font-size: clamp(1.7rem, 9vw, 2.1rem);
-  }
-
-  .site-status {
-    width: 100%;
   }
 }

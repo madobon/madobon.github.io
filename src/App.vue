@@ -26,10 +26,6 @@ const pageTitle = computed(() => {
   return title === SITE_NAME ? title : `${title} | ${SITE_NAME}`;
 });
 
-const currentSection = computed(() =>
-  typeof route.meta.title === "string" ? route.meta.title : "Home",
-);
-
 const pageDescription = computed(
   () =>
     getBlogPostBySlug(typeof route.params.slug === "string" ? route.params.slug : "")?.summary ??
@@ -200,12 +196,6 @@ useHead({
       </div>
 
       <div class="site-nav-wrap">
-        <div class="site-status">
-          <span class="site-status-label">Current</span>
-          <strong>{{ currentSection }}</strong>
-          <span class="site-status-note">気になるところから、どうぞ。</span>
-        </div>
-
         <button
           class="theme-toggle"
           type="button"
