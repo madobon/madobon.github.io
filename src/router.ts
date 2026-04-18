@@ -3,6 +3,7 @@ import type { RouteRecordRaw } from "vue-router";
 import AboutPage from "./pages/AboutPage.vue";
 import BlogPage from "./pages/BlogPage.vue";
 import BlogPostPage from "./pages/BlogPostPage.vue";
+import GardenPage from "./pages/GardenPage.vue";
 import HomePage from "./pages/HomePage.vue";
 import ProjectsPage from "./pages/ProjectsPage.vue";
 import TalksPage from "./pages/TalksPage.vue";
@@ -54,6 +55,14 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       title: "Talks",
       description: "発表アーカイブと今後追加する Slidev デッキ。",
+    },
+  },
+  {
+    path: "/garden/",
+    component: GardenPage,
+    meta: {
+      title: "家庭菜園",
+      description: "季節の野菜を育てる記録。年間スケジュールと栽培中の野菜。",
     },
   },
 ];

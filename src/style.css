@@ -311,6 +311,7 @@ code {
   justify-content: space-between;
   gap: 1rem;
   padding: 0.8rem 0 1.6rem;
+  overflow: visible;
 }
 
 .masthead {
@@ -450,6 +451,8 @@ code {
   background: var(--site-nav-background);
   box-shadow: inset 0 0 0 1px var(--site-nav-inset);
   backdrop-filter: blur(12px);
+  overflow: visible;
+  z-index: 100;
 }
 
 .nav-link {
@@ -484,6 +487,91 @@ code {
   inset: auto 0.9rem 0.35rem;
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--nav-active-underline), transparent);
+}
+
+/* ドロップダウンメニュー */
+.nav-dropdown {
+  position: relative;
+  display: inline-flex;
+}
+
+.nav-dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  font: inherit;
+  color: inherit;
+  padding: 0.65rem 0.9rem;
+  border-radius: 999px;
+  transition:
+    color 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.nav-dropdown-toggle:hover {
+  color: var(--text);
+  background: var(--nav-hover-background);
+  transform: translateY(-1px);
+}
+
+.dropdown-arrow {
+  width: 0.9rem;
+  height: 0.9rem;
+  transition: transform 0.2s ease;
+}
+
+.nav-dropdown.is-open .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.nav-dropdown-content {
+  position: fixed;
+  z-index: 10000;
+  min-width: 160px;
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+  background: var(--panel-strong);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transform: translateY(-0.5rem);
+  pointer-events: none;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.nav-dropdown.is-open .nav-dropdown-content {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.nav-dropdown-item {
+  display: block;
+  padding: 0.6rem 0.85rem;
+  border-radius: 0.5rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition:
+    color 0.15s ease,
+    background 0.15s ease;
+}
+
+.nav-dropdown-item:hover {
+  color: var(--text);
+  background: var(--nav-hover-background);
+}
+
+.nav-dropdown-item.is-active {
+  color: var(--accent-strong);
+  background: var(--accent-soft);
 }
 
 .theme-toggle {

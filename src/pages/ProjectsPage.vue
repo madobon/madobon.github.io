@@ -1,20 +1,10 @@
 <script setup lang="ts">
 const projects = [
   {
-    name: "madobon.github.io",
-    status: "構築中",
-    summary: "このホームページ自体です。公開ノート、発表、今後の実験をまとめる基点になります。",
-  },
-  {
-    name: "Slide decks",
-    status: "準備中",
-    summary: "発表ごとのビルドを追加すれば、Slidev の資料をこのサイト配下で公開できます。",
-  },
-  {
-    name: "Utilities and notes",
-    status: "継続追加",
-    summary:
-      "公開して残しておきたいもの、あとから検索できるようにしたいものをここに蓄積していきます。",
+    name: "家庭菜園",
+    status: "栽培中",
+    summary: "季節の野菜を育てる記録。年間スケジュールと栽培中の野菜をまとめています。",
+    href: "/garden/",
   },
 ];
 
@@ -38,11 +28,16 @@ const projectModes = ["Public experiments", "Small utilities", "Long-lived archi
     </section>
 
     <section class="grid cards-grid cards-grid-featured">
-      <article v-for="project in projects" :key="project.name" class="card nav-card">
+      <a
+        v-for="project in projects"
+        :key="project.name"
+        :href="project.href || '#'"
+        class="card nav-card project-link"
+      >
         <p class="card-kicker">{{ project.status }}</p>
         <h2>{{ project.name }}</h2>
         <p>{{ project.summary }}</p>
-      </article>
+      </a>
     </section>
 
     <section class="grid split-grid feature-band">
@@ -65,3 +60,19 @@ const projectModes = ["Public experiments", "Small utilities", "Long-lived archi
     </section>
   </div>
 </template>
+
+<style scoped>
+.project-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.project-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+</style>

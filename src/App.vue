@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useHead } from "@unhead/vue";
-import { computed, onMounted, ref } from "vue";
+import { computed, nextTick, onMounted, onUnmounted, ref } from "vue";
 import { RouterLink, RouterView, useRoute } from "vue-router";
 
 import { getBlogPostBySlug } from "./data/blog";
@@ -14,9 +14,49 @@ const navigation = [
   { href: "/", label: "Home" },
   { href: "/about/", label: "About" },
   { href: "/blog/", label: "Blog" },
-  { href: "/projects/", label: "Projects" },
+  {
+    label: "Projects",
+    children: [
+      { href: "/projects/", label: "Projects" },
+      { href: "/garden/", label: "Garden" },
+    ],
+  },
   { href: "/talks/", label: "Talks" },
 ];
+
+const isProjectsOpen = ref(false);
+const dropdownRef = ref<HTMLElement | null>(null);
+const dropdownPosition = ref<{ top: number; left: number } | null>(null);
+
+const updateDropdownPosition = () => {
+  if (dropdownRef.value && isProjectsOpen.value) {
+    const rect = dropdownRef.value.getBoundingClientRect();
+    dropdownPosition.value = {
+      top: rect.bottom + window.scrollY + 8,
+      left: rect.left + window.scrollX,
+    };
+  }
+};
+
+const toggleDropdown = () => {
+  isProjectsOpen.value = !isProjectsOpen.value;
+  if (isProjectsOpen.value) {
+    nextTick(() => updateDropdownPosition());
+  }
+};
+
+// クリック外で閉じる
+const closeDropdown = () => {
+  isProjectsOpen.value = false;
+};
+
+onMounted(() => {
+  window.addEventListener("click", closeDropdown);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("click", closeDropdown);
+});
 
 const pageTitle = computed(() => {
   const slug = typeof route.params.slug === "string" ? route.params.slug : "";
@@ -230,9 +270,62 @@ useHead({
         </button>
 
         <nav class="site-nav" aria-label="Primary">
-          <RouterLink v-for="item in navigation" :key="item.href" :to="item.href" class="nav-link">
-            {{ item.label }}
-          </RouterLink>
+          <template v-for="item in navigation" :key="item.href || item.label">
+            <!-- ドロップダウンメニュー -->
+            <div
+              v-if="item.children"
+              ref="dropdownRef"
+              class="nav-dropdown"
+              :class="{ 'is-open': isProjectsOpen }"
+              @click.stop
+            >
+              <button
+                class="nav-link nav-dropdown-toggle"
+                :class="{
+                  'router-link-active':
+                    $route.path.startsWith('/projects/') || $route.path.startsWith('/garden/'),
+                }"
+                @click.stop="toggleDropdown"
+              >
+                {{ item.label }}
+                <svg class="dropdown-arrow" viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M6 9l6 6 6-6"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+              </button>
+              <div
+                v-show="isProjectsOpen"
+                class="nav-dropdown-content"
+                :style="
+                  dropdownPosition && {
+                    top: dropdownPosition.top + 'px',
+                    left: dropdownPosition.left + 'px',
+                  }
+                "
+              >
+                <a
+                  v-for="child in item.children"
+                  :key="child.href"
+                  :href="child.href"
+                  class="nav-dropdown-item"
+                  :class="{ 'is-active': $route.path === child.href }"
+                  @click="closeDropdown"
+                >
+                  {{ child.label }}
+                </a>
+              </div>
+            </div>
+            <!-- 通常のリンク -->
+            <RouterLink v-else :to="item.href" class="nav-link">
+              {{ item.label }}
+            </RouterLink>
+          </template>
         </nav>
       </div>
     </header>
