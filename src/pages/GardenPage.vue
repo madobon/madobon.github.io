@@ -171,19 +171,57 @@ const vegetableGantt = [
 
 // 月別スケジュール（簡易表示用）
 const scheduleByMonth = [
-  { month: 1, label: "1 月", tasks: ["堆肥入れ", "畝作り", "来年計画"] },
-  { month: 2, label: "2 月", tasks: ["堆肥入れ", "畝作り", "種苗注文"] },
-  { month: 3, label: "3 月", tasks: ["レタス育苗", "キャベツ育苗", "マルチ張り"] },
-  { month: 4, label: "4 月", tasks: ["トマト育苗", "ナス育苗", "定植準備"] },
-  { month: 5, label: "5 月", tasks: ["夏野菜定植", "雨除け設置", "きゅうりネット"] },
-  { month: 6, label: "6 月", tasks: ["追肥", "誘引", "剪定", "梅雨対策"] },
-  { month: 7, label: "7 月", tasks: ["水やり", "収穫", "病害虫対策"] },
-  { month: 8, label: "8 月", tasks: ["水やり", "収穫", "秋野菜育苗"] },
-  { month: 9, label: "9 月", tasks: ["秋野菜定植", "収穫", "片付け"] },
-  { month: 10, label: "10 月", tasks: ["収穫", "保存処理", "片付け"] },
-  { month: 11, label: "11 月", tasks: ["収穫", "片付け", "堆肥入れ"] },
-  { month: 12, label: "12 月", tasks: ["片付け", "来年計画", "道具手入れ"] },
+  { month: 1, label: "1 月", icon: "❄️", season: "冬", tasks: ["堆肥入れ", "畝作り", "来年計画"] },
+  { month: 2, label: "2 月", icon: "❄️", season: "冬", tasks: ["堆肥入れ", "畝作り", "種苗注文"] },
+  {
+    month: 3,
+    label: "3 月",
+    icon: "🌱",
+    season: "春",
+    tasks: ["レタス育苗", "キャベツ育苗", "マルチ張り"],
+  },
+  {
+    month: 4,
+    label: "4 月",
+    icon: "🌱",
+    season: "春",
+    tasks: ["トマト育苗", "ナス育苗", "定植準備"],
+  },
+  {
+    month: 5,
+    label: "5 月",
+    icon: "🌱",
+    season: "春",
+    tasks: ["夏野菜定植", "雨除け設置", "きゅうりネット"],
+  },
+  {
+    month: 6,
+    label: "6 月",
+    icon: "☀️",
+    season: "夏",
+    tasks: ["追肥", "誘引", "剪定", "梅雨対策"],
+  },
+  { month: 7, label: "7 月", icon: "☀️", season: "夏", tasks: ["水やり", "収穫", "病害虫対策"] },
+  { month: 8, label: "8 月", icon: "☀️", season: "夏", tasks: ["水やり", "収穫", "秋野菜育苗"] },
+  { month: 9, label: "9 月", icon: "🍂", season: "秋", tasks: ["秋野菜定植", "収穫", "片付け"] },
+  { month: 10, label: "10 月", icon: "🍂", season: "秋", tasks: ["収穫", "保存処理", "片付け"] },
+  { month: 11, label: "11 月", icon: "🍂", season: "秋", tasks: ["収穫", "片付け", "堆肥入れ"] },
+  {
+    month: 12,
+    label: "12 月",
+    icon: "❄️",
+    season: "冬",
+    tasks: ["片付け", "来年計画", "道具手入れ"],
+  },
 ];
+
+// 季節の色定義
+const seasonColors: Record<string, { bg: string; border: string; text: string }> = {
+  春: { bg: "rgba(134, 239, 172, 0.1)", border: "rgba(134, 239, 172, 0.3)", text: "#86efac" },
+  夏: { bg: "rgba(254, 202, 214, 0.1)", border: "rgba(254, 202, 214, 0.3)", text: "#feca8a" },
+  秋: { bg: "rgba(251, 191, 36, 0.1)", border: "rgba(251, 191, 36, 0.3)", text: "#fbbf24" },
+  冬: { bg: "rgba(147, 197, 253, 0.1)", border: "rgba(147, 197, 253, 0.3)", text: "#93c5fd" },
+};
 
 // ガントチャートのレンダリング用
 const months = [
@@ -219,6 +257,15 @@ const getTaskStyle = (start: [number, number], end: [number, number]) => {
   return {
     gridColumnStart,
     gridColumnEnd,
+  };
+};
+
+const getSeasonStyle = (season: string) => {
+  const colors = seasonColors[season] || seasonColors["春"];
+  return {
+    "--season-bg": colors.bg,
+    "--season-border": colors.border,
+    "--season-text": colors.text,
   };
 };
 
@@ -298,7 +345,7 @@ const getTasksWithDuplicateFlag = (tasks: typeof vegetableGantt) => {
 
         <!-- 春野菜 -->
         <div v-if="groupedBySection['春野菜']" class="gantt-section">
-          <div class="gantt-section-title">春野菜</div>
+          <div class="gantt-section-title"><span class="section-icon">🌱</span> 春野菜</div>
           <div
             v-for="(task, index) in getTasksWithDuplicateFlag(groupedBySection['春野菜'])"
             :key="task.name + task.type + task.start + index"
@@ -320,7 +367,7 @@ const getTasksWithDuplicateFlag = (tasks: typeof vegetableGantt) => {
 
         <!-- 夏野菜 -->
         <div v-if="groupedBySection['夏野菜']" class="gantt-section">
-          <div class="gantt-section-title">夏野菜</div>
+          <div class="gantt-section-title"><span class="section-icon">☀️</span> 夏野菜</div>
           <div
             v-for="(task, index) in getTasksWithDuplicateFlag(groupedBySection['夏野菜'])"
             :key="task.name + task.type + task.start + index"
@@ -342,7 +389,7 @@ const getTasksWithDuplicateFlag = (tasks: typeof vegetableGantt) => {
 
         <!-- 秋野菜 -->
         <div v-if="groupedBySection['秋野菜']" class="gantt-section">
-          <div class="gantt-section-title">秋野菜</div>
+          <div class="gantt-section-title"><span class="section-icon">🍂</span> 秋野菜</div>
           <div
             v-for="(task, index) in getTasksWithDuplicateFlag(groupedBySection['秋野菜'])"
             :key="task.name + task.type + task.start + index"
@@ -372,10 +419,18 @@ const getTasksWithDuplicateFlag = (tasks: typeof vegetableGantt) => {
           v-for="month in scheduleByMonth"
           :key="month.month"
           :class="['schedule-card', { 'current-month': month.month === currentMonth }]"
+          :style="getSeasonStyle(month.season)"
         >
-          <h3 class="schedule-month">{{ month.label }}</h3>
+          <div class="schedule-header">
+            <span class="month-icon">{{ month.icon }}</span>
+            <div class="schedule-title-group">
+              <h3 class="schedule-month">{{ month.label }}</h3>
+              <span :class="['season-badge', 'season-' + month.season]">{{ month.season }}</span>
+            </div>
+          </div>
           <ul class="schedule-tasks">
             <li v-for="task in month.tasks" :key="task" class="task-item">
+              <span class="task-bullet"></span>
               {{ task }}
             </li>
           </ul>
@@ -555,9 +610,31 @@ const getTasksWithDuplicateFlag = (tasks: typeof vegetableGantt) => {
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--accent);
-  background: var(--bg-secondary);
-  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.section-icon {
+  font-size: 1.25rem;
+}
+
+.gantt-section:nth-of-type(1) .gantt-section-title {
+  color: #86efac;
+  background: rgba(134, 239, 172, 0.08);
+  border-bottom: 1px solid rgba(134, 239, 172, 0.2);
+}
+
+.gantt-section:nth-of-type(2) .gantt-section-title {
+  color: #feca8a;
+  background: rgba(254, 202, 214, 0.08);
+  border-bottom: 1px solid rgba(254, 202, 214, 0.2);
+}
+
+.gantt-section:nth-of-type(3) .gantt-section-title {
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.08);
+  border-bottom: 1px solid rgba(251, 191, 36, 0.2);
 }
 
 .gantt-row {
@@ -627,28 +704,103 @@ const getTasksWithDuplicateFlag = (tasks: typeof vegetableGantt) => {
 
 .schedule-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
 }
 
 .schedule-card {
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1rem;
-  transition: all 0.2s ease;
+  border-radius: 12px;
+  padding: 1.25rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.schedule-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--season-border);
+  opacity: 0.7;
+}
+
+.schedule-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  border-color: var(--season-border);
 }
 
 .schedule-card.current-month {
   border-color: var(--accent);
-  box-shadow: 0 0 0 2px var(--accent-light);
+  box-shadow: 0 0 0 2px var(--accent-soft);
+  background: linear-gradient(135deg, var(--card-bg) 0%, rgba(114, 219, 255, 0.05) 100%);
+}
+
+.schedule-card.current-month::before {
+  height: 4px;
+  opacity: 1;
+}
+
+.schedule-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.month-icon {
+  font-size: 2rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.schedule-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .schedule-month {
-  font-size: 1rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text);
+}
+
+.season-badge {
+  font-size: 0.625rem;
   font-weight: 600;
-  margin: 0 0 0.75rem 0;
-  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  display: inline-block;
+  width: fit-content;
+}
+
+.season-春 {
+  background: rgba(134, 239, 172, 0.15);
+  color: #86efac;
+}
+
+.season-夏 {
+  background: rgba(254, 202, 214, 0.15);
+  color: #feca8a;
+}
+
+.season-秋 {
+  background: rgba(251, 191, 36, 0.15);
+  color: #fbbf24;
+}
+
+.season-冬 {
+  background: rgba(147, 197, 253, 0.15);
+  color: #93c5fd;
 }
 
 .schedule-tasks {
@@ -658,10 +810,22 @@ const getTasksWithDuplicateFlag = (tasks: typeof vegetableGantt) => {
 }
 
 .task-item {
-  font-size: 0.8rem;
-  padding: 0.35rem 0;
-  line-height: 1.4;
-  color: var(--text);
+  font-size: 0.8125rem;
+  padding: 0.5rem 0;
+  line-height: 1.5;
+  color: var(--text-muted);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.task-bullet {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--season-border);
+  margin-top: 0.375rem;
+  flex-shrink: 0;
 }
 
 .task-item:not(:last-child) {
