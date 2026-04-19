@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, nextTick } from "vue";
 import mermaid from "mermaid";
+import Vegetable3DScene from "../components/garden/Vegetable3DScene.vue";
+import VegetablePopup from "../components/garden/VegetablePopup.vue";
+
+const selectedVegetable = ref<(typeof growingVegetables)[number] | null>(null);
+const show3DView = ref(true);
 
 // 栽培中の野菜
 const growingVegetables = [
@@ -306,14 +311,32 @@ const getTasksWithDuplicateFlag = (tasks: typeof vegetableGantt) => {
       </div>
     </section>
 
-    <!-- 栽培中の野菜 -->
+    <!-- 3D ビュー -->
+    <section class="garden-section garden-3d-section">
+      <div class="section-header-with-toggle">
+        <h2 class="section-title">栽培中の野菜（3D ビュー）</h2>
+        <button class="toggle-button" @click="show3DView = !show3DView" :aria-expanded="show3DView">
+          <span>{{ show3DView ? "隠す" : "表示" }}</span>
+        </button>
+      </div>
+      <div v-if="show3DView" class="vegetable-3d-container">
+        <Vegetable3DScene :vegetables="growingVegetables" @select="selectedVegetable = $event" />
+        <p class="interaction-hint">
+          <span class="hint-icon">🖱️</span>
+          マウスで視点移動、野菜をクリックすると詳細が表示されます
+        </p>
+      </div>
+    </section>
+
+    <!-- 栽培中の野菜（リストビュー） -->
     <section class="garden-section">
-      <h2 class="section-title">栽培中の野菜</h2>
+      <h2 class="section-title">栽培中の野菜（リスト）</h2>
       <div class="grid cards-grid">
         <article
           v-for="vegetable in growingVegetables"
           :key="vegetable.name + vegetable.startDate"
           class="card vegetable-card"
+          @click="selectedVegetable = vegetable"
         >
           <div class="vegetable-header">
             <h3>{{ vegetable.name }}</h3>
@@ -438,6 +461,13 @@ const getTasksWithDuplicateFlag = (tasks: typeof vegetableGantt) => {
       </div>
     </section>
   </div>
+
+  <!-- ポップアップ -->
+  <VegetablePopup
+    v-if="selectedVegetable"
+    :vegetable="selectedVegetable"
+    @close="selectedVegetable = null"
+  />
 </template>
 
 <style scoped>
@@ -445,6 +475,79 @@ const getTasksWithDuplicateFlag = (tasks: typeof vegetableGantt) => {
   max-width: 960px;
   margin: 0 auto;
   padding: 2rem 1rem;
+}
+
+.garden-3d-section {
+  position: relative;
+}
+
+.section-header-with-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.section-header-with-toggle .section-title {
+  margin-bottom: 0;
+}
+
+.toggle-button {
+  background: var(--button-ghost-background);
+  border: 1px solid var(--button-ghost-border);
+  color: var(--text);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.toggle-button:hover {
+  background: var(--nav-hover-background);
+  border-color: var(--accent);
+}
+
+.vegetable-3d-container {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  background: linear-gradient(180deg, #0a1929 0%, #0f2441 100%);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.interaction-hint {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  color: var(--muted);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+
+.hint-icon {
+  font-size: 1rem;
+}
+
+.vegetable-card {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.vegetable-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
 }
 
 .page-heading {
