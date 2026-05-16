@@ -102,11 +102,11 @@ const closeDropdown = () => {
 };
 
 onMounted(() => {
-  window.addEventListener('click', closeDropdown);
+  window.addEventListener("click", closeDropdown);
 });
 
 onUnmounted(() => {
-  window.removeEventListener('click', closeDropdown);
+  window.removeEventListener("click", closeDropdown);
 });
 ```
 
@@ -198,7 +198,7 @@ const scheduleByMonth = [
 ];
 ```
 
-##  Responsive Design
+## Responsive Design
 
 640px 未満でレイアウトを最適化。
 
