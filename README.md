@@ -40,8 +40,9 @@ The repository is intended for GitHub Pages as the `madobon.github.io` user site
 
 - GitHub Actions runs daily at 03:00 UTC (12:00 JST)
 - Monitors `anthropics/claude-code` CHANGELOG and `anthropic.com/news`
-- On change, generates a Japanese blog post via Ollama Cloud and commits it
-- Site rebuilds and deploys automatically via GitHub Pages
+- On change, generates a Japanese blog post via Ollama Cloud and **creates a Pull Request**
+- **You review the PR** — approve and merge to publish. Dangerous content is auto-blocked.
+- Site rebuilds and deploys automatically via GitHub Pages after merge
 
 ### Manual run
 
