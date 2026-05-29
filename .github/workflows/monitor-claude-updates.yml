@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   check-and-post:
@@ -25,6 +26,8 @@ jobs:
           OLLAMA_CLOUD_API_KEY: ${{ secrets.OLLAMA_CLOUD_API_KEY }}
           OLLAMA_API_BASE: ${{ secrets.OLLAMA_API_BASE }}
           OLLAMA_MODEL: ${{ secrets.OLLAMA_MODEL }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
           CI: true
           GIT_AUTHOR_NAME: "github-actions[bot]"
           GIT_AUTHOR_EMAIL: "github-actions[bot]@users.noreply.github.com"
