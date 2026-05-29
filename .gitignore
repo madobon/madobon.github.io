@@ -26,3 +26,7 @@ talks/*/_redirects
 *.njsproj
 *.sln
 *.sw?
+
+# Claude update monitor cache & secrets
+scripts/.cache
+scripts/.env
