@@ -321,8 +321,10 @@ async function main() {
   }
 
   if (created > 0 && process.env.CI === "true") {
-    const timestamp = new Date().toISOString().slice(0, 10).replace(/-/g, "");
-    const branch = `auto/claude-updates-${timestamp}-${hash(newFiles.join("")).slice(0, 8)}`;
+    const now = new Date();
+    const dateStr = now.toISOString().slice(0, 10).replace(/-/g, "");
+    const timeStr = now.toTimeString().slice(0, 8).replace(/:/g, "");
+    const branch = `auto/claude-updates-${dateStr}-${timeStr}-${hash(newFiles.join("")).slice(0, 8)}`;
     await createPullRequest(branch, newFiles, newTitles);
   }
 
