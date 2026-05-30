@@ -131,20 +131,21 @@ function buildSafeFrontmatter(title, slug) {
   return `---\ntitle: "${safeTitle}"\ndate: "${toJstIso()}"\nslug: "${slug}"\nsummary: "${safeTitle} の新機能・変更点を解説します。"\ntags:\n  - claude\n  - ai-agent\n---\n`;
 }
 
-async function generateBlogPost(diffText, sourceId) {
+async function generateBlogPost(diffText, sourceId, sourceUrl) {
   const today = new Date().toISOString().slice(0, 10);
   const prompt = `あなたは日本語の技術ブログライターです。
 
 以下は ${sourceId} の最新アップデートの差分です。
 
-${diffText.slice(0, 6000)}
+${diffText.slice(0, 10000)}
 
 上記を元に、日本語の技術ブログ記事を Markdown で作成してください。
 
 【文体・表現ルール】（必ず遵守）
 - 常体（「だ・である」調）で統一。敬体（「です・ます」）は使わない
 - 一文は60文字以内。長文は適切に改行
-- 英語の固有名詞・技術用語はカタカナ表記に統一（例: plugin → プラグイン、marketplace → マーケットプレイス）
+- 英語の固有名詞・製品名・モデル名は英語のまま表記する（例: Claude Code, Opus 4.8, Fast Mode, agents）
+- 一般的な技術用語は必要に応じて日本語訳を併記（例: plugin → プラグイン）
 - 技術的な事実に忠実。推測や誇張表現は避ける
 - 接続詞は自然な日本語で。「〜ということです」「〜という感じです」などの口語的表現は避ける
 - 段落間の繋ぎは簡潔に。無理なテンプレート句は使わない
@@ -152,7 +153,7 @@ ${diffText.slice(0, 6000)}
 【構成】
 1. 「はじめに」：このアップデートの背景と目的を2〜3行で
 2. 「変更点の概要」：箇条書きで主要な変更を列挙
-3. 「詳細解説」：重要な変更を深掘り。コード例があれば含める
+3. 「詳細解説」：**差分の変更点を網羅的に解説**。各変更について、目的・効果・利用方法を具体的に説明。コード例・設定方法・操作手順があれば必ず含める。情報が落ちないよう、差分に記載された内容はすべて網羅すること
 4. 「まとめ」：読者が得られるメリットを簡潔に
 
 【frontmatter】
@@ -185,7 +186,9 @@ ${diffText.slice(0, 6000)}
   // Strip any dangerous HTML that might have slipped through
   cleaned = stripDangerousHtml(cleaned);
 
-  return { markdown: frontmatter + "\n" + cleaned, title, slug };
+  // Append source reference
+  const refSection = `\n\n---\n\n## 参考\n\n- [${sourceId}](${sourceUrl})`;
+  return { markdown: frontmatter + "\n" + cleaned + refSection, title, slug };
 }
 
 function extractNewsLinks(html) {
