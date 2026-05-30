@@ -309,7 +309,7 @@ async function main() {
       diffText = cached ? buildDiff(cached.body, body) : body.slice(0, 8000);
     }
 
-    const { markdown, title, slug } = await generateBlogPost(diffText, target.id);
+    const { markdown, title, slug } = await generateBlogPost(diffText, target.id, target.url);
 
     // Validate generated content
     const validation = validateContent(markdown);
