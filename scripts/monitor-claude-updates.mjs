@@ -100,7 +100,7 @@ async function callOllama(prompt) {
       model,
       messages: [{ role: "user", content: prompt }],
       stream: false,
-      options: { temperature: 0.7 },
+      options: { temperature: 0.3 },
     }),
   });
 
@@ -133,21 +133,39 @@ function buildSafeFrontmatter(title, slug) {
 
 async function generateBlogPost(diffText, sourceId) {
   const today = new Date().toISOString().slice(0, 10);
-  const prompt = `以下は ${sourceId} の最新アップデートの差分です。
+  const prompt = `あなたは日本語の技術ブログライターです。
+
+以下は ${sourceId} の最新アップデートの差分です。
 
 ${diffText.slice(0, 6000)}
 
 上記を元に、日本語の技術ブログ記事を Markdown で作成してください。
 
-要件:
-- YAML frontmatter を含める。date は ${today}、slug は自動生成、tags に claude を含める
-- タイトルは 40 文字以内
-- 「はじめに」「変更点の概要」「詳細解説」「まとめ」の構成
-- コード例があれば含める
-- 親しみやすい技術ブログ調
-- **HTMLタグやjavascript:リンクを含めないこと**
+【文体・表現ルール】（必ず遵守）
+- 常体（「だ・である」調）で統一。敬体（「です・ます」）は使わない
+- 一文は60文字以内。長文は適切に改行
+- 英語の固有名詞・技術用語はカタカナ表記に統一（例: plugin → プラグイン、marketplace → マーケットプレイス）
+- 技術的な事実に忠実。推測や誇張表現は避ける
+- 接続詞は自然な日本語で。「〜ということです」「〜という感じです」などの口語的表現は避ける
+- 段落間の繋ぎは簡潔に。無理なテンプレート句は使わない
 
-出力は frontmatter から始めて、本文のみを出力してください。説明文や余計な出力は不要です。`;
+【構成】
+1. 「はじめに」：このアップデートの背景と目的を2〜3行で
+2. 「変更点の概要」：箇条書きで主要な変更を列挙
+3. 「詳細解説」：重要な変更を深掘り。コード例があれば含める
+4. 「まとめ」：読者が得られるメリットを簡潔に
+
+【frontmatter】
+- title: 40文字以内の簡潔なタイトル
+- date: ${today}
+- slug: 英語のslug（英数字とハイフンのみ）
+- tags: claude, ai-agent を含める
+
+【注意】
+- HTMLタグ、javascript:リンク、iframe、script は含めないこと
+- Markdown のコードブロック（\`\`\`）で囲まないこと
+- 出力は frontmatter（---で囲む）から始めて、本文のみ出力
+- 説明文や余計な出力は一切不要`;
 
   const raw = await callOllama(prompt);
 
