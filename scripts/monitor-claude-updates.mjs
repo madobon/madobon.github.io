@@ -259,11 +259,6 @@ const targets = [
     url: "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
     type: "text",
   },
-  {
-    id: "anthropic-news",
-    url: "https://www.anthropic.com/news",
-    type: "html",
-  },
 ];
 
 async function main() {
