@@ -29,15 +29,51 @@ function saveCache(id, h, body) {
   writeFileSync(join(cacheDir, `${id}.body`), body);
 }
 
+// --- weekly digest helpers ---
+function extractWeeklyDigestLinks(html) {
+  const links = [];
+  // Match href="/docs/en/whats-new/YYYY-WNN"
+  const regex = /href="(\/docs\/en\/whats-new\/\d{4}-w\d{1,2})"[^>]*>([^<]+)</gi;
+  let match;
+  while ((match = regex.exec(html)) !== null) {
+    links.push({ url: match[1], title: match[2].trim() });
+  }
+  // Deduplicate by URL, keep first
+  const seen = new Set();
+  return links.filter((l) => {
+    if (seen.has(l.url)) return false;
+    seen.add(l.url);
+    return true;
+  });
+}
+
+function loadWeekCache(id) {
+  try {
+    const raw = readFileSync(join(cacheDir, `${id}.weeks`), "utf8");
+    return new Set(raw.trim().split("\n").filter(Boolean));
+  } catch {
+    return new Set();
+  }
+}
+
+function saveWeekCache(id, weeks) {
+  mkdirSync(cacheDir, { recursive: true });
+  const lines = Array.from(weeks)
+    .sort((a, b) => a.localeCompare(b))
+    .join("\n");
+  writeFileSync(join(cacheDir, `${id}.weeks`), lines);
+}
+
+// --- end weekly digest helpers ---
+
 function buildDiff(oldBody, newBody) {
   const oldLines = new Set(oldBody.split("\n"));
   const added = newBody.split("\n").filter((line) => !oldLines.has(line));
   return added.join("\n") || newBody;
 }
 
-function toJstIso() {
-  const now = new Date();
-  const jst = new Date(now.getTime() + 9 * 60 * 60 * 1000);
+function toJstIso(date = new Date()) {
+  const jst = new Date(date.getTime() + 9 * 60 * 60 * 1000);
   return jst.toISOString().replace(/\.\d{3}Z$/, "+09:00");
 }
 
@@ -214,6 +250,135 @@ function extractNewsLinks(html) {
   return links;
 }
 
+async function checkWeeklyDigests(createdSoFar, newFiles, newTitles) {
+  const indexUrl = "https://code.claude.com/docs/en/whats-new";
+  const cacheId = "claude-weekly-digest";
+  const weekBase = "https://code.claude.com";
+
+  console.log(`[${cacheId}] fetching index...`);
+  const res = await fetch(indexUrl, {
+    headers: { "User-Agent": "Mozilla/5.0 (compatible; Bot/0.1)" },
+  });
+  if (!res.ok) {
+    console.error(`[${cacheId}] fetch failed: ${res.status}`);
+    return createdSoFar;
+  }
+
+  const html = await res.text();
+  const links = extractWeeklyDigestLinks(html);
+  const knownWeeks = loadWeekCache(cacheId);
+  const newWeeks = links.filter((l) => !knownWeeks.has(l.url));
+
+  if (newWeeks.length === 0) {
+    console.log(`[${cacheId}] no new weekly digests.`);
+    return createdSoFar;
+  }
+
+  console.log(`[${cacheId}] ${newWeeks.length} new week(s) detected.`);
+
+  for (const week of newWeeks) {
+    const weekUrl = `${weekBase}${week.url}.md`;
+    const weekLabel = week.title || week.url;
+    console.log(`[${cacheId}] fetching ${weekUrl} ...`);
+
+    let weekRes;
+    try {
+      weekRes = await fetch(weekUrl, {
+        headers: { "User-Agent": "Mozilla/5.0 (compatible; Bot/0.1)" },
+      });
+    } catch (e) {
+      console.error(`[${cacheId}] fetch ${weekUrl} error: ${e.message}`);
+      continue;
+    }
+
+    if (!weekRes.ok) {
+      console.error(`[${cacheId}] fetch ${weekUrl} failed: ${weekRes.status}`);
+      continue;
+    }
+
+    const md = await weekRes.text();
+    // Parse week range from title, e.g. "Week 20 · May 11–15, 2026"
+    // We want to extract the date range for the filename
+    const h1Match = md.match(/^#\s+(.+)$/m);
+    const h1 = h1Match ? h1Match[1].trim() : weekLabel;
+
+    // Generate blog post from raw markdown
+    const { markdown, title, slug } = await generateBlogPost(md.slice(0, 12000), h1, weekUrl);
+
+    // Validate generated content
+    const validation = validateContent(markdown);
+    if (!validation.ok) {
+      console.error(`[${cacheId}] DANGEROUS CONTENT BLOCKED: ${validation.violations.join(", ")}`);
+      console.error("Skipping this weekly digest. Please review manually.");
+      continue;
+    }
+
+    // Determine file date from week range or today's date
+    // h1 looks like "Week 20 · May 11–15, 2026"
+    const dateMatch = h1.match(/([A-Z][a-z]+)\s+(\d{1,2})[–-]\d{1,2},?\s+(\d{4})/);
+    let fileDate;
+    if (dateMatch) {
+      const monthName = dateMatch[1];
+      const day = parseInt(dateMatch[2], 10);
+      const year = parseInt(dateMatch[3], 10);
+      const monthMap = {
+        Jan: 0,
+        Feb: 1,
+        Mar: 2,
+        Apr: 3,
+        May: 4,
+        Jun: 5,
+        Jul: 6,
+        Aug: 7,
+        Sep: 8,
+        Oct: 9,
+        Nov: 10,
+        Dec: 11,
+        January: 0,
+        February: 1,
+        March: 2,
+        April: 3,
+        June: 5,
+        July: 6,
+        August: 7,
+        September: 8,
+        October: 9,
+        November: 10,
+        December: 11,
+      };
+      const month = monthMap[monthName];
+      if (month !== undefined) {
+        const d = new Date(Date.UTC(year, month, day));
+        fileDate = d.toISOString().slice(0, 10);
+      }
+    }
+    if (!fileDate) {
+      fileDate = new Date().toISOString().slice(0, 10);
+    }
+
+    const fileName = `${fileDate}_${slug}.md`;
+    const filePath = join(blogDir, fileName);
+
+    if (existsSync(filePath)) {
+      console.log(`[${cacheId}] ${fileName} already exists, skipping.`);
+      knownWeeks.add(week.url);
+      continue;
+    }
+
+    mkdirSync(blogDir, { recursive: true });
+    writeFileSync(filePath, markdown);
+    console.log(`[${cacheId}] created ${filePath}`);
+    createdSoFar += 1;
+    newFiles.push(`src/content/blog/${fileName}`);
+    newTitles.push(title);
+
+    knownWeeks.add(week.url);
+  }
+
+  saveWeekCache(cacheId, knownWeeks);
+  return createdSoFar;
+}
+
 async function createPullRequest(branch, files, titles) {
   const token = process.env.GITHUB_TOKEN;
   const repo = process.env.GITHUB_REPOSITORY;
@@ -348,6 +513,9 @@ async function main() {
 
     saveCache(target.id, currentHash, body);
   }
+
+  // Check weekly digests
+  created = await checkWeeklyDigests(created, newFiles, newTitles);
 
   if (created > 0 && process.env.CI === "true") {
     const now = new Date();
